@@ -241,9 +241,14 @@ class Agent:
                 observation = new_observation
                 
                 # append the angle, angular velocity and torque to the lists
-                theta_list.append(observation[0])
-                theta_dot_list.append(observation[1])
-                torque_list.append(self.env.actions[action])
+                if self.nJoint == 1:
+                    theta_list.append(observation[0])
+                    theta_dot_list.append(observation[1])
+                    torque_list.append(self.env.actions[action])
+                else:
+                    theta_list.append([observation[0], observation[2]])
+                    theta_dot_list.append([observation[1], observation[3]])
+                    torque_list.append([self.env.actions[action], 0.0])
 
                 if verbose:
                     print("Episode: {}, Step: {}, Reward: {}".format(episode, self.env.iterCount, episode_reward))
@@ -259,21 +264,21 @@ class Agent:
                 plt.xlabel("Steps")
                 plt.ylabel("Angle")
                 plt.legend(["q"])
-                plt.title("Swing Up Angles")
+                plt.title("Swing Up Angle")
                 plt.show()
                 # plot the angular velocities
                 plt.plot(theta_dot_list)
                 plt.xlabel("Steps")
                 plt.ylabel("Angular Velocity")
                 plt.legend(["dq"])
-                plt.title("Swing Up Angular Velocities")
+                plt.title("Swing Up Angular Velocity")
                 plt.show()
                 # plot the torques
                 plt.plot(torque_list)
                 plt.xlabel("Steps")
                 plt.ylabel("Torque")
                 plt.legend(["tau"])
-                plt.title("Swing Up Torques")
+                plt.title("Swing Up Torque")
                 plt.show()
             # if the pendulum is double
             else:
