@@ -1,0 +1,1346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>DQN-SwingUp.DQN.Agent API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>DQN-SwingUp.DQN.Agent</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import os
+import configparser
+import ast
+os.environ[&#39;TF_CPP_MIN_LOG_LEVEL&#39;] = &#39;3&#39;
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib import cm
+import seaborn as sns
+
+import copy
+import time
+from datetime import datetime
+import tensorflow as tf
+from tensorflow.keras import backend as K
+
+from DQN.DeepQNetwork import DeepQNetwork
+from DQN.ReplayBuffer import ReplayBuffer
+
+class Agent:
+    &#34;&#34;&#34;
+    DQN Agent
+    - Take an environment
+    - Set up the deep neural network
+    - Store the experience
+    - Choose action
+    - Train the network
+    - Evaluate the network
+    &#34;&#34;&#34;
+    def __init__(self, env):
+        self.env = env
+        
+        self.nJoint = self.env.nbJoint
+        
+        # read INI file
+        # get the path of the root directory
+        root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        ini_file_path = os.path.join(root_dir, &#39;config.ini&#39;)
+        self.params = self.parse_ini(ini_file_path)
+
+        # set up the parameters from the INI file
+        self.action_steps = int(self.params[&#39;action_steps&#39;])
+        self.torque_range = ast.literal_eval(self.params[&#39;torque_range&#39;])
+        self.max_episode_steps = int(self.params[&#39;max_episode_steps&#39;])
+        self.train_episodes = int(self.params[&#39;train_episodes&#39;])
+        self.lr = float(self.params[&#39;lr&#39;])
+        self.discount_factor = float(self.params[&#39;discount_factor&#39;])
+        self.epsilon = float(self.params[&#39;epsilon&#39;])
+        self.epsilon_decay = float(self.params[&#39;epsilon_decay&#39;])
+        self.epsilon_final = float(self.params[&#39;epsilon_final&#39;])
+        self.buffer_size = int(self.params[&#39;buffer_size&#39;])
+        self.batch_size = int(self.params[&#39;batch_size&#39;])
+        self.hidden_dims = ast.literal_eval(self.params[&#39;hidden_dims&#39;])
+
+        # set up the environment parameters
+        self.env.num_actions = self.action_steps
+        self.env.range_actions = self.torque_range
+        self.env.maxIter = self.max_episode_steps
+        self.env.umax = self.torque_range[1]
+        self.env.actions = np.linspace(self.env.range_actions[0], self.env.range_actions[1], self.action_steps)
+        self.env.action_space = [i for i in range(self.action_steps)]
+        self.action_space = self.env.action_space
+
+        self.update_rate = 100
+        self.step_counter = 0
+        
+        self.replay_buffer = ReplayBuffer(self.buffer_size)
+
+        self.name_model = self.env.name + &#39;_&#39;+str(self.action_steps)+&#39;_&#39;+str(self.hidden_dims)
+        # path of the weights folder
+        self.weights_folder = os.path.join(root_dir, &#39;saved_weights&#39;)
+        self.final_weights_folder = os.path.join(root_dir, &#39;final_results/&#39;+self.env.name)
+        self.weights_name = [&#39;dqn_weights_&#39; + self.name_model +&#39;.h5&#39;,
+                             &#39;dqn_target_weights_&#39; + self.name_model +&#39;.h5&#39;]
+        
+        self.metrics_folder = os.path.join(root_dir, &#39;saved_metrics&#39;)
+        self.metrics_df = pd.DataFrame()
+        self.metrics_name = &#39;&#39;
+
+        self.q_net = DeepQNetwork(self.lr, self.env.num_actions, self.env.num_state, self.hidden_dims , opt=&#39;adam&#39;, loss=&#39;mse&#39;)
+        self.q_target_net = DeepQNetwork(self.lr, self.env.num_actions, self.env.num_state, self.hidden_dims, opt=&#39;adam&#39;, loss=&#39;mse&#39;)
+        self.loss = []
+
+        self.training_time = 0
+    
+    def policy(self, observation, type=&#39;epsilon_greedy&#39;):
+        &#34;&#34;&#34;
+        Choose an action based on the policy
+        &#34;&#34;&#34;
+        if type == &#39;epsilon_greedy&#39;:
+            if np.random.random() &lt; self.epsilon:
+                action = np.random.choice(self.action_space)
+            else:
+                action = np.argmax(self.q_net.predict(np.array([observation])))
+        elif type == &#39;greedy&#39;:
+            action = np.argmax(self.q_net.predict(np.array([observation])))
+        elif type == &#39;random&#39;:
+            action = np.random.choice(self.action_space)
+        else:
+            raise Exception(&#34;Unknown policy type&#34;)
+        
+        return action
+    
+    def train(self):
+        &#34;&#34;&#34;
+        Train the network
+        &#34;&#34;&#34;
+        # check if the replay buffer has enough experiences
+        if len(self.replay_buffer.gameplay_experiences) &lt; self.batch_size:
+            return
+        
+        # sample a batch of experiences
+        states, actions, rewards, new_states, dones = self.replay_buffer.sample_batch(self.batch_size)
+
+        # predict the q values of the current states
+        q_predicted = self.q_net.predict(states)
+        # predict the q values of the next states
+        q_next = self.q_target_net.predict(new_states)
+        # get the maximum q value of the next states
+        q_max_next = np.max(q_next, axis=1)
+        # copy the q values of the current states
+        q_target = q_predicted.copy()
+        #q_target = tf.identity(q_predicted)
+        
+        for i in range(self.batch_size):
+            # Q(s, a) = r + γ * max(Q(s&#39;, a&#39;)) * (1 - done)
+            # if the next state is terminal, then the q value is just the reward
+            # otherwise, estimate the q value using the target network
+            q_target[i, actions[i]] = rewards[i] + self.discount_factor * q_max_next[i] * (1 - dones[i])
+        
+        # train the network in batches
+        self.q_net.train_on_batch(states, q_target)
+        loss = self.q_net.evaluate(states, q_target, verbose=0)
+        # loss = self.q_net.train_batch_gradientTape(states, q_target)
+        # append the loss
+        self.loss.append(loss)
+
+        # decay the epsilon
+        self.epsilon = self.epsilon - self.epsilon_decay if self.epsilon &gt; self.epsilon_final else self.epsilon_final
+        self.step_counter += 1
+
+        # if the step counter is a multiple of the update rate, update the target network
+        if self.step_counter % self.update_rate == 0:
+            self.q_target_net.model.set_weights(self.q_net.model.get_weights())
+            # print(&#34;Target network updated&#34;)
+   
+    def train_model(self, render=True, plot=True, verbose=False, soft_start=False):
+        &#34;&#34;&#34;
+        Train the model for a number of episodes and plot the reward
+        &#34;&#34;&#34;
+
+        if soft_start:
+            # load the weights
+            self.q_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[0]))
+            self.q_target_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[1]))
+
+        start_training_time = time.time()
+        for episode in range(self.train_episodes):
+            observation = self.env.reset()
+            done = False
+            episode_reward = 0
+            self.loss = []
+            while not done:
+                if render:
+                    self.env.render()
+
+                # copy of the observation to store in the replay buffer
+                # because when passing the env reference, the old observation gets overwritten
+                observation_copy = copy.copy(observation)
+                action = self.policy(observation, &#39;epsilon_greedy&#39;)
+                new_observation, reward, done = self.env.step(self.env.actions[action])
+                new_observation_copy = copy.copy(new_observation)
+                episode_reward += reward
+                # store the experience in the replay buffer
+                self.replay_buffer.store_tuple(observation_copy, action, reward, new_observation_copy, done)
+                observation = new_observation_copy
+                self.train()
+                if verbose:
+                    if len(self.loss) &gt; 0: 
+                        print(&#34;Episode: {}, Step: {}, Reward: {}, Loss: {}&#34;.format(episode, self.env.iterCount, episode_reward, self.loss[-1]))
+                    else:
+                        print(&#34;Episode: {}, Step: {}, Reward: {}&#34;.format(episode, self.env.iterCount, episode_reward))
+            if len(self.loss) &gt; 0:
+                # average of episode reward and loss
+                avg_episode_reward = episode_reward / self.env.iterCount
+                # average of the list of losses of the last steps
+                avg_episode_loss = np.mean(self.loss[-self.env.iterCount:])
+                self.save_metrics(episode, avg_episode_reward, avg_episode_loss, self.epsilon, time.time() - start_training_time)
+            else:
+                self.save_metrics(episode, episode_reward, None, self.epsilon, time.time() - start_training_time)
+        
+            # save the weights every 10 episodes
+            if episode % 10 == 0:
+                self.q_net.model.save_weights(os.path.join(self.weights_folder, self.weights_name[0]))
+                self.q_target_net.model.save_weights(os.path.join(self.weights_folder, self.weights_name[1]))
+            
+            # clear the session to avoid memory leaks
+            K.clear_session()       
+        
+        self.training_time = time.time() - start_training_time
+        print(&#34;Training time: {}&#34;.format(self.training_time))
+
+        if plot:
+            # plot loss vs episodes
+            plt.plot(self.loss)
+            plt.xlabel(&#34;Final Episode Steps&#34;)
+            plt.ylabel(&#34;Final Loss&#34;)
+            plt.show()
+            
+    def evaluate_model(self, episodes, swingUp=False, render=True, plot=True, verbose=False, final=False):
+        &#34;&#34;&#34;
+        Evaluate the model for a number of episodes
+        &#34;&#34;&#34;
+        # load the weights
+        if final:
+            self.q_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[0]))
+            self.q_target_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[1]))
+        else:
+            self.q_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[0]))
+            self.q_target_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[1]))
+
+        theta_list = []
+        theta_dot_list = []
+        torque_list = []
+
+        for episode in range(episodes):
+            if swingUp:
+                observation = self.env.reset_swingUp()
+            else:
+                observation = self.env.reset()
+            done = False
+            episode_reward = 0
+            while not done:
+                if render:
+                    self.env.render()
+                # take actions only from predictions
+                action = self.policy(observation, &#39;greedy&#39;)
+                new_observation, reward, done = self.env.step(self.env.actions[action])
+                episode_reward += reward
+                observation = new_observation
+                
+                # append the angle, angular velocity and torque to the lists
+                if self.nJoint == 1:
+                    theta_list.append(observation[0])
+                    theta_dot_list.append(observation[1])
+                    torque_list.append(self.env.actions[action])
+                else:
+                    theta_list.append([observation[0], observation[2]])
+                    theta_dot_list.append([observation[1], observation[3]])
+                    torque_list.append([self.env.actions[action], 0.0])
+
+                if verbose:
+                    print(&#34;Episode: {}, Step: {}, Reward: {}&#34;.format(episode, self.env.iterCount, episode_reward))
+        
+        if plot:
+            # plot the angle, angular velocity and torque using sns
+            sns.set()
+            # plot the angle
+            # if the pendulum is single
+            if self.nJoint == 1:
+                # plot the angles
+                plt.plot(theta_list)
+                plt.xlabel(&#34;Steps&#34;)
+                plt.ylabel(&#34;Angle&#34;)
+                plt.legend([&#34;q&#34;])
+                plt.title(&#34;Swing Up Angle&#34;)
+                plt.show()
+                # plot the angular velocities
+                plt.plot(theta_dot_list)
+                plt.xlabel(&#34;Steps&#34;)
+                plt.ylabel(&#34;Angular Velocity&#34;)
+                plt.legend([&#34;dq&#34;])
+                plt.title(&#34;Swing Up Angular Velocity&#34;)
+                plt.show()
+                # plot the torques
+                plt.plot(torque_list)
+                plt.xlabel(&#34;Steps&#34;)
+                plt.ylabel(&#34;Torque&#34;)
+                plt.legend([&#34;tau&#34;])
+                plt.title(&#34;Swing Up Torque&#34;)
+                plt.show()
+            # if the pendulum is double
+            else:
+                # plot the angles
+                plt.plot(theta_list)
+                plt.xlabel(&#34;Steps&#34;)
+                plt.ylabel(&#34;Angles&#34;)
+                plt.legend([&#34;q1&#34;, &#34;q2&#34;])
+                plt.title(&#34;Swing Up Angles&#34;)
+                plt.show()
+                # plot the angular velocities
+                plt.plot(theta_dot_list)
+                plt.xlabel(&#34;Steps&#34;)
+                plt.ylabel(&#34;Angular Velocities&#34;)
+                plt.legend([&#34;dq1&#34;, &#34;dq2&#34;])
+                plt.title(&#34;Swing Up Angular Velocities&#34;)
+                plt.show()
+                # plot the torques
+                plt.plot(torque_list)
+                plt.xlabel(&#34;Steps&#34;)
+                plt.ylabel(&#34;Torques&#34;)
+                plt.legend([&#34;tau1&#34;, &#34;tau2&#34;])
+                plt.title(&#34;Swing Up Torques&#34;)
+                plt.show()
+
+    def plot_value_policy(self, visual=&#39;2D&#39;, resolution=10, final=False):
+        &#34;&#34;&#34;
+        Plot the value function and the policy of single pendulum
+        &#34;&#34;&#34;
+        # Load the weights
+        if final:
+            self.q_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[0]))
+            self.q_target_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[1]))
+        else:
+            self.q_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[0]))
+            self.q_target_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[1]))
+
+        # Discretize the state space
+        theta = np.linspace(-np.pi, np.pi, resolution)
+        theta_dot = np.linspace(-self.env.vmax, self.env.vmax, resolution)
+
+        # Create meshgrid
+        theta_mesh, theta_dot_mesh = np.meshgrid(theta, theta_dot)
+
+        # Initialize value function and policy arrays
+        V = np.zeros_like(theta_mesh)
+        P = np.zeros_like(theta_mesh)
+
+        # Iterate over each state in the meshgrid
+        for i in range(resolution):
+            for j in range(resolution):
+                state = np.array([theta_mesh[i, j], theta_dot_mesh[i, j]])
+                state_tensor = tf.constant(state, dtype=tf.float32)
+                q_values = self.q_net.model(state_tensor[None])[0]
+                V[i, j] = tf.reduce_max(q_values)
+                P[i, j] = tf.argmax(q_values)
+                # map the action index to the action value
+                P[i, j] = self.env.actions[int(P[i, j])]
+        
+        if visual==&#39;3D&#39;:
+            # Set the viewing angles
+            elevation = 90  # Viewing angle from above
+            azimuth = -90  # Rotate around the z-axis
+
+            # Create 3D plots
+            fig = plt.figure(figsize=(10, 5))
+            ax1 = fig.add_subplot(121, projection=&#39;3d&#39;)
+            value_surf = ax1.plot_surface(theta_mesh, theta_dot_mesh, V, cmap=cm.viridis)
+            ax1.view_init(elevation, azimuth)  # Set the viewing angles
+            ax1.set_xlabel(&#39;q&#39;)
+            ax1.set_ylabel(&#39;dq&#39;)
+            ax1.set_zlabel(&#39;Value&#39;)
+            ax1.set_title(&#39;Value Function&#39;)
+            fig.colorbar(value_surf, shrink=0.5, aspect=5)
+
+            ax2 = fig.add_subplot(122, projection=&#39;3d&#39;)
+            policy_surf = ax2.plot_surface(theta_mesh, theta_dot_mesh, P, cmap=cm.Spectral)
+            ax2.view_init(elevation, azimuth)  # Set the viewing angles
+            ax2.set_xlabel(&#39;q&#39;)
+            ax2.set_ylabel(&#39;dq&#39;)
+            ax2.set_zlabel(&#39;Action&#39;)
+            ax2.set_title(&#39;Policy Function&#39;)
+            fig.colorbar(policy_surf, shrink=0.5, aspect=5)
+        else:
+            # Set Seaborn style
+            sns.set()
+
+            # Create 2D plots with colormaps using Seaborn
+            fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+
+            # Plot the value function
+            ax1 = axes[0]
+            sns.heatmap(V, cmap=&#39;viridis&#39;, ax=ax1, cbar=True)
+            # set ticks as theta and theta_dot
+            ax1.set_xticks(np.linspace(0, resolution, 5))
+            ax1.set_xticklabels([-3, -1, 0, 1, 3])
+            ax1.set_yticks(np.linspace(0, resolution, 5))
+            ax1.set_yticklabels(np.linspace(-self.env.vmax, self.env.vmax, 5, dtype=int))
+            ax1.set_xlabel(&#39;q&#39;)
+            ax1.set_ylabel(&#39;dq&#39;)
+            ax1.set_title(&#39;Value Function&#39;)
+
+            # Plot the policy
+            ax2 = axes[1]
+            sns.heatmap(P, cmap=&#39;Spectral&#39;, ax=ax2, cbar=True)
+            # set ticks as theta and theta_dot
+            ax2.set_xticks(np.linspace(0, resolution, 5))
+            ax2.set_xticklabels([-3, -1, 0, 1, 3])
+            ax2.set_yticks(np.linspace(0, resolution, 5))
+            ax2.set_yticklabels(np.linspace(-self.env.vmax, self.env.vmax, 5, dtype=int))
+            ax2.set_xlabel(&#39;q&#39;)
+            ax2.set_ylabel(&#39;dq&#39;)
+            ax2.set_title(&#39;Policy Function&#39;)
+            plt.tight_layout()
+
+        plt.show()
+
+    def parse_ini(self, ini_file):
+        &#34;&#34;&#34;
+        Parse the ini file with the env parameters
+        &#34;&#34;&#34;
+        config = configparser.ConfigParser()
+        config.read(ini_file)
+
+        if self.nJoint == 1:
+            # parse the &#39;simple_pendulum&#39; section
+            return config[&#39;simple_pendulum&#39;]
+        else:
+            # parse the &#39;double_pendulum&#39; section
+            return config[&#39;double_pendulum&#39;]
+    
+    def save_metrics(self, episode, episode_reward, last_loss, last_epsilon, episode_time):
+        &#34;&#34;&#34;
+        Save the metrics in a dataframe and export it to a csv file
+        &#34;&#34;&#34;
+        # if the dataframe is empty, create it
+        if self.metrics_df.empty:
+            self.metrics_df = pd.DataFrame(columns=[&#39;episode&#39;, &#39;reward&#39;, &#39;loss&#39;, &#39;epsilon&#39;, &#39;time&#39;])
+            timestamp_ep = datetime.now().strftime(&#34;%Y%m%d_%H%M%S&#34;)
+            self.metrics_name = self.name_model + &#39;_&#39; + timestamp_ep + &#39;.csv&#39;
+        
+        # append the metrics to the dataframe using iloc
+        self.metrics_df.loc[len(self.metrics_df)] = [episode, episode_reward, last_loss, last_epsilon, episode_time]
+        # export the dataframe to a csv file with timestamp
+        self.metrics_df.to_csv(os.path.join(self.metrics_folder, self.metrics_name), index=False)
+
+        
+
+    
+        </code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="DQN-SwingUp.DQN.Agent.Agent"><code class="flex name class">
+<span>class <span class="ident">Agent</span></span>
+<span>(</span><span>env)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>DQN Agent
+- Take an environment
+- Set up the deep neural network
+- Store the experience
+- Choose action
+- Train the network
+- Evaluate the network</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Agent:
+    &#34;&#34;&#34;
+    DQN Agent
+    - Take an environment
+    - Set up the deep neural network
+    - Store the experience
+    - Choose action
+    - Train the network
+    - Evaluate the network
+    &#34;&#34;&#34;
+    def __init__(self, env):
+        self.env = env
+        
+        self.nJoint = self.env.nbJoint
+        
+        # read INI file
+        # get the path of the root directory
+        root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        ini_file_path = os.path.join(root_dir, &#39;config.ini&#39;)
+        self.params = self.parse_ini(ini_file_path)
+
+        # set up the parameters from the INI file
+        self.action_steps = int(self.params[&#39;action_steps&#39;])
+        self.torque_range = ast.literal_eval(self.params[&#39;torque_range&#39;])
+        self.max_episode_steps = int(self.params[&#39;max_episode_steps&#39;])
+        self.train_episodes = int(self.params[&#39;train_episodes&#39;])
+        self.lr = float(self.params[&#39;lr&#39;])
+        self.discount_factor = float(self.params[&#39;discount_factor&#39;])
+        self.epsilon = float(self.params[&#39;epsilon&#39;])
+        self.epsilon_decay = float(self.params[&#39;epsilon_decay&#39;])
+        self.epsilon_final = float(self.params[&#39;epsilon_final&#39;])
+        self.buffer_size = int(self.params[&#39;buffer_size&#39;])
+        self.batch_size = int(self.params[&#39;batch_size&#39;])
+        self.hidden_dims = ast.literal_eval(self.params[&#39;hidden_dims&#39;])
+
+        # set up the environment parameters
+        self.env.num_actions = self.action_steps
+        self.env.range_actions = self.torque_range
+        self.env.maxIter = self.max_episode_steps
+        self.env.umax = self.torque_range[1]
+        self.env.actions = np.linspace(self.env.range_actions[0], self.env.range_actions[1], self.action_steps)
+        self.env.action_space = [i for i in range(self.action_steps)]
+        self.action_space = self.env.action_space
+
+        self.update_rate = 100
+        self.step_counter = 0
+        
+        self.replay_buffer = ReplayBuffer(self.buffer_size)
+
+        self.name_model = self.env.name + &#39;_&#39;+str(self.action_steps)+&#39;_&#39;+str(self.hidden_dims)
+        # path of the weights folder
+        self.weights_folder = os.path.join(root_dir, &#39;saved_weights&#39;)
+        self.final_weights_folder = os.path.join(root_dir, &#39;final_results/&#39;+self.env.name)
+        self.weights_name = [&#39;dqn_weights_&#39; + self.name_model +&#39;.h5&#39;,
+                             &#39;dqn_target_weights_&#39; + self.name_model +&#39;.h5&#39;]
+        
+        self.metrics_folder = os.path.join(root_dir, &#39;saved_metrics&#39;)
+        self.metrics_df = pd.DataFrame()
+        self.metrics_name = &#39;&#39;
+
+        self.q_net = DeepQNetwork(self.lr, self.env.num_actions, self.env.num_state, self.hidden_dims , opt=&#39;adam&#39;, loss=&#39;mse&#39;)
+        self.q_target_net = DeepQNetwork(self.lr, self.env.num_actions, self.env.num_state, self.hidden_dims, opt=&#39;adam&#39;, loss=&#39;mse&#39;)
+        self.loss = []
+
+        self.training_time = 0
+    
+    def policy(self, observation, type=&#39;epsilon_greedy&#39;):
+        &#34;&#34;&#34;
+        Choose an action based on the policy
+        &#34;&#34;&#34;
+        if type == &#39;epsilon_greedy&#39;:
+            if np.random.random() &lt; self.epsilon:
+                action = np.random.choice(self.action_space)
+            else:
+                action = np.argmax(self.q_net.predict(np.array([observation])))
+        elif type == &#39;greedy&#39;:
+            action = np.argmax(self.q_net.predict(np.array([observation])))
+        elif type == &#39;random&#39;:
+            action = np.random.choice(self.action_space)
+        else:
+            raise Exception(&#34;Unknown policy type&#34;)
+        
+        return action
+    
+    def train(self):
+        &#34;&#34;&#34;
+        Train the network
+        &#34;&#34;&#34;
+        # check if the replay buffer has enough experiences
+        if len(self.replay_buffer.gameplay_experiences) &lt; self.batch_size:
+            return
+        
+        # sample a batch of experiences
+        states, actions, rewards, new_states, dones = self.replay_buffer.sample_batch(self.batch_size)
+
+        # predict the q values of the current states
+        q_predicted = self.q_net.predict(states)
+        # predict the q values of the next states
+        q_next = self.q_target_net.predict(new_states)
+        # get the maximum q value of the next states
+        q_max_next = np.max(q_next, axis=1)
+        # copy the q values of the current states
+        q_target = q_predicted.copy()
+        #q_target = tf.identity(q_predicted)
+        
+        for i in range(self.batch_size):
+            # Q(s, a) = r + γ * max(Q(s&#39;, a&#39;)) * (1 - done)
+            # if the next state is terminal, then the q value is just the reward
+            # otherwise, estimate the q value using the target network
+            q_target[i, actions[i]] = rewards[i] + self.discount_factor * q_max_next[i] * (1 - dones[i])
+        
+        # train the network in batches
+        self.q_net.train_on_batch(states, q_target)
+        loss = self.q_net.evaluate(states, q_target, verbose=0)
+        # loss = self.q_net.train_batch_gradientTape(states, q_target)
+        # append the loss
+        self.loss.append(loss)
+
+        # decay the epsilon
+        self.epsilon = self.epsilon - self.epsilon_decay if self.epsilon &gt; self.epsilon_final else self.epsilon_final
+        self.step_counter += 1
+
+        # if the step counter is a multiple of the update rate, update the target network
+        if self.step_counter % self.update_rate == 0:
+            self.q_target_net.model.set_weights(self.q_net.model.get_weights())
+            # print(&#34;Target network updated&#34;)
+   
+    def train_model(self, render=True, plot=True, verbose=False, soft_start=False):
+        &#34;&#34;&#34;
+        Train the model for a number of episodes and plot the reward
+        &#34;&#34;&#34;
+
+        if soft_start:
+            # load the weights
+            self.q_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[0]))
+            self.q_target_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[1]))
+
+        start_training_time = time.time()
+        for episode in range(self.train_episodes):
+            observation = self.env.reset()
+            done = False
+            episode_reward = 0
+            self.loss = []
+            while not done:
+                if render:
+                    self.env.render()
+
+                # copy of the observation to store in the replay buffer
+                # because when passing the env reference, the old observation gets overwritten
+                observation_copy = copy.copy(observation)
+                action = self.policy(observation, &#39;epsilon_greedy&#39;)
+                new_observation, reward, done = self.env.step(self.env.actions[action])
+                new_observation_copy = copy.copy(new_observation)
+                episode_reward += reward
+                # store the experience in the replay buffer
+                self.replay_buffer.store_tuple(observation_copy, action, reward, new_observation_copy, done)
+                observation = new_observation_copy
+                self.train()
+                if verbose:
+                    if len(self.loss) &gt; 0: 
+                        print(&#34;Episode: {}, Step: {}, Reward: {}, Loss: {}&#34;.format(episode, self.env.iterCount, episode_reward, self.loss[-1]))
+                    else:
+                        print(&#34;Episode: {}, Step: {}, Reward: {}&#34;.format(episode, self.env.iterCount, episode_reward))
+            if len(self.loss) &gt; 0:
+                # average of episode reward and loss
+                avg_episode_reward = episode_reward / self.env.iterCount
+                # average of the list of losses of the last steps
+                avg_episode_loss = np.mean(self.loss[-self.env.iterCount:])
+                self.save_metrics(episode, avg_episode_reward, avg_episode_loss, self.epsilon, time.time() - start_training_time)
+            else:
+                self.save_metrics(episode, episode_reward, None, self.epsilon, time.time() - start_training_time)
+        
+            # save the weights every 10 episodes
+            if episode % 10 == 0:
+                self.q_net.model.save_weights(os.path.join(self.weights_folder, self.weights_name[0]))
+                self.q_target_net.model.save_weights(os.path.join(self.weights_folder, self.weights_name[1]))
+            
+            # clear the session to avoid memory leaks
+            K.clear_session()       
+        
+        self.training_time = time.time() - start_training_time
+        print(&#34;Training time: {}&#34;.format(self.training_time))
+
+        if plot:
+            # plot loss vs episodes
+            plt.plot(self.loss)
+            plt.xlabel(&#34;Final Episode Steps&#34;)
+            plt.ylabel(&#34;Final Loss&#34;)
+            plt.show()
+            
+    def evaluate_model(self, episodes, swingUp=False, render=True, plot=True, verbose=False, final=False):
+        &#34;&#34;&#34;
+        Evaluate the model for a number of episodes
+        &#34;&#34;&#34;
+        # load the weights
+        if final:
+            self.q_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[0]))
+            self.q_target_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[1]))
+        else:
+            self.q_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[0]))
+            self.q_target_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[1]))
+
+        theta_list = []
+        theta_dot_list = []
+        torque_list = []
+
+        for episode in range(episodes):
+            if swingUp:
+                observation = self.env.reset_swingUp()
+            else:
+                observation = self.env.reset()
+            done = False
+            episode_reward = 0
+            while not done:
+                if render:
+                    self.env.render()
+                # take actions only from predictions
+                action = self.policy(observation, &#39;greedy&#39;)
+                new_observation, reward, done = self.env.step(self.env.actions[action])
+                episode_reward += reward
+                observation = new_observation
+                
+                # append the angle, angular velocity and torque to the lists
+                if self.nJoint == 1:
+                    theta_list.append(observation[0])
+                    theta_dot_list.append(observation[1])
+                    torque_list.append(self.env.actions[action])
+                else:
+                    theta_list.append([observation[0], observation[2]])
+                    theta_dot_list.append([observation[1], observation[3]])
+                    torque_list.append([self.env.actions[action], 0.0])
+
+                if verbose:
+                    print(&#34;Episode: {}, Step: {}, Reward: {}&#34;.format(episode, self.env.iterCount, episode_reward))
+        
+        if plot:
+            # plot the angle, angular velocity and torque using sns
+            sns.set()
+            # plot the angle
+            # if the pendulum is single
+            if self.nJoint == 1:
+                # plot the angles
+                plt.plot(theta_list)
+                plt.xlabel(&#34;Steps&#34;)
+                plt.ylabel(&#34;Angle&#34;)
+                plt.legend([&#34;q&#34;])
+                plt.title(&#34;Swing Up Angle&#34;)
+                plt.show()
+                # plot the angular velocities
+                plt.plot(theta_dot_list)
+                plt.xlabel(&#34;Steps&#34;)
+                plt.ylabel(&#34;Angular Velocity&#34;)
+                plt.legend([&#34;dq&#34;])
+                plt.title(&#34;Swing Up Angular Velocity&#34;)
+                plt.show()
+                # plot the torques
+                plt.plot(torque_list)
+                plt.xlabel(&#34;Steps&#34;)
+                plt.ylabel(&#34;Torque&#34;)
+                plt.legend([&#34;tau&#34;])
+                plt.title(&#34;Swing Up Torque&#34;)
+                plt.show()
+            # if the pendulum is double
+            else:
+                # plot the angles
+                plt.plot(theta_list)
+                plt.xlabel(&#34;Steps&#34;)
+                plt.ylabel(&#34;Angles&#34;)
+                plt.legend([&#34;q1&#34;, &#34;q2&#34;])
+                plt.title(&#34;Swing Up Angles&#34;)
+                plt.show()
+                # plot the angular velocities
+                plt.plot(theta_dot_list)
+                plt.xlabel(&#34;Steps&#34;)
+                plt.ylabel(&#34;Angular Velocities&#34;)
+                plt.legend([&#34;dq1&#34;, &#34;dq2&#34;])
+                plt.title(&#34;Swing Up Angular Velocities&#34;)
+                plt.show()
+                # plot the torques
+                plt.plot(torque_list)
+                plt.xlabel(&#34;Steps&#34;)
+                plt.ylabel(&#34;Torques&#34;)
+                plt.legend([&#34;tau1&#34;, &#34;tau2&#34;])
+                plt.title(&#34;Swing Up Torques&#34;)
+                plt.show()
+
+    def plot_value_policy(self, visual=&#39;2D&#39;, resolution=10, final=False):
+        &#34;&#34;&#34;
+        Plot the value function and the policy of single pendulum
+        &#34;&#34;&#34;
+        # Load the weights
+        if final:
+            self.q_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[0]))
+            self.q_target_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[1]))
+        else:
+            self.q_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[0]))
+            self.q_target_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[1]))
+
+        # Discretize the state space
+        theta = np.linspace(-np.pi, np.pi, resolution)
+        theta_dot = np.linspace(-self.env.vmax, self.env.vmax, resolution)
+
+        # Create meshgrid
+        theta_mesh, theta_dot_mesh = np.meshgrid(theta, theta_dot)
+
+        # Initialize value function and policy arrays
+        V = np.zeros_like(theta_mesh)
+        P = np.zeros_like(theta_mesh)
+
+        # Iterate over each state in the meshgrid
+        for i in range(resolution):
+            for j in range(resolution):
+                state = np.array([theta_mesh[i, j], theta_dot_mesh[i, j]])
+                state_tensor = tf.constant(state, dtype=tf.float32)
+                q_values = self.q_net.model(state_tensor[None])[0]
+                V[i, j] = tf.reduce_max(q_values)
+                P[i, j] = tf.argmax(q_values)
+                # map the action index to the action value
+                P[i, j] = self.env.actions[int(P[i, j])]
+        
+        if visual==&#39;3D&#39;:
+            # Set the viewing angles
+            elevation = 90  # Viewing angle from above
+            azimuth = -90  # Rotate around the z-axis
+
+            # Create 3D plots
+            fig = plt.figure(figsize=(10, 5))
+            ax1 = fig.add_subplot(121, projection=&#39;3d&#39;)
+            value_surf = ax1.plot_surface(theta_mesh, theta_dot_mesh, V, cmap=cm.viridis)
+            ax1.view_init(elevation, azimuth)  # Set the viewing angles
+            ax1.set_xlabel(&#39;q&#39;)
+            ax1.set_ylabel(&#39;dq&#39;)
+            ax1.set_zlabel(&#39;Value&#39;)
+            ax1.set_title(&#39;Value Function&#39;)
+            fig.colorbar(value_surf, shrink=0.5, aspect=5)
+
+            ax2 = fig.add_subplot(122, projection=&#39;3d&#39;)
+            policy_surf = ax2.plot_surface(theta_mesh, theta_dot_mesh, P, cmap=cm.Spectral)
+            ax2.view_init(elevation, azimuth)  # Set the viewing angles
+            ax2.set_xlabel(&#39;q&#39;)
+            ax2.set_ylabel(&#39;dq&#39;)
+            ax2.set_zlabel(&#39;Action&#39;)
+            ax2.set_title(&#39;Policy Function&#39;)
+            fig.colorbar(policy_surf, shrink=0.5, aspect=5)
+        else:
+            # Set Seaborn style
+            sns.set()
+
+            # Create 2D plots with colormaps using Seaborn
+            fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+
+            # Plot the value function
+            ax1 = axes[0]
+            sns.heatmap(V, cmap=&#39;viridis&#39;, ax=ax1, cbar=True)
+            # set ticks as theta and theta_dot
+            ax1.set_xticks(np.linspace(0, resolution, 5))
+            ax1.set_xticklabels([-3, -1, 0, 1, 3])
+            ax1.set_yticks(np.linspace(0, resolution, 5))
+            ax1.set_yticklabels(np.linspace(-self.env.vmax, self.env.vmax, 5, dtype=int))
+            ax1.set_xlabel(&#39;q&#39;)
+            ax1.set_ylabel(&#39;dq&#39;)
+            ax1.set_title(&#39;Value Function&#39;)
+
+            # Plot the policy
+            ax2 = axes[1]
+            sns.heatmap(P, cmap=&#39;Spectral&#39;, ax=ax2, cbar=True)
+            # set ticks as theta and theta_dot
+            ax2.set_xticks(np.linspace(0, resolution, 5))
+            ax2.set_xticklabels([-3, -1, 0, 1, 3])
+            ax2.set_yticks(np.linspace(0, resolution, 5))
+            ax2.set_yticklabels(np.linspace(-self.env.vmax, self.env.vmax, 5, dtype=int))
+            ax2.set_xlabel(&#39;q&#39;)
+            ax2.set_ylabel(&#39;dq&#39;)
+            ax2.set_title(&#39;Policy Function&#39;)
+            plt.tight_layout()
+
+        plt.show()
+
+    def parse_ini(self, ini_file):
+        &#34;&#34;&#34;
+        Parse the ini file with the env parameters
+        &#34;&#34;&#34;
+        config = configparser.ConfigParser()
+        config.read(ini_file)
+
+        if self.nJoint == 1:
+            # parse the &#39;simple_pendulum&#39; section
+            return config[&#39;simple_pendulum&#39;]
+        else:
+            # parse the &#39;double_pendulum&#39; section
+            return config[&#39;double_pendulum&#39;]
+    
+    def save_metrics(self, episode, episode_reward, last_loss, last_epsilon, episode_time):
+        &#34;&#34;&#34;
+        Save the metrics in a dataframe and export it to a csv file
+        &#34;&#34;&#34;
+        # if the dataframe is empty, create it
+        if self.metrics_df.empty:
+            self.metrics_df = pd.DataFrame(columns=[&#39;episode&#39;, &#39;reward&#39;, &#39;loss&#39;, &#39;epsilon&#39;, &#39;time&#39;])
+            timestamp_ep = datetime.now().strftime(&#34;%Y%m%d_%H%M%S&#34;)
+            self.metrics_name = self.name_model + &#39;_&#39; + timestamp_ep + &#39;.csv&#39;
+        
+        # append the metrics to the dataframe using iloc
+        self.metrics_df.loc[len(self.metrics_df)] = [episode, episode_reward, last_loss, last_epsilon, episode_time]
+        # export the dataframe to a csv file with timestamp
+        self.metrics_df.to_csv(os.path.join(self.metrics_folder, self.metrics_name), index=False)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="DQN-SwingUp.DQN.Agent.Agent.evaluate_model"><code class="name flex">
+<span>def <span class="ident">evaluate_model</span></span>(<span>self, episodes, swingUp=False, render=True, plot=True, verbose=False, final=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Evaluate the model for a number of episodes</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def evaluate_model(self, episodes, swingUp=False, render=True, plot=True, verbose=False, final=False):
+    &#34;&#34;&#34;
+    Evaluate the model for a number of episodes
+    &#34;&#34;&#34;
+    # load the weights
+    if final:
+        self.q_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[0]))
+        self.q_target_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[1]))
+    else:
+        self.q_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[0]))
+        self.q_target_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[1]))
+
+    theta_list = []
+    theta_dot_list = []
+    torque_list = []
+
+    for episode in range(episodes):
+        if swingUp:
+            observation = self.env.reset_swingUp()
+        else:
+            observation = self.env.reset()
+        done = False
+        episode_reward = 0
+        while not done:
+            if render:
+                self.env.render()
+            # take actions only from predictions
+            action = self.policy(observation, &#39;greedy&#39;)
+            new_observation, reward, done = self.env.step(self.env.actions[action])
+            episode_reward += reward
+            observation = new_observation
+            
+            # append the angle, angular velocity and torque to the lists
+            if self.nJoint == 1:
+                theta_list.append(observation[0])
+                theta_dot_list.append(observation[1])
+                torque_list.append(self.env.actions[action])
+            else:
+                theta_list.append([observation[0], observation[2]])
+                theta_dot_list.append([observation[1], observation[3]])
+                torque_list.append([self.env.actions[action], 0.0])
+
+            if verbose:
+                print(&#34;Episode: {}, Step: {}, Reward: {}&#34;.format(episode, self.env.iterCount, episode_reward))
+    
+    if plot:
+        # plot the angle, angular velocity and torque using sns
+        sns.set()
+        # plot the angle
+        # if the pendulum is single
+        if self.nJoint == 1:
+            # plot the angles
+            plt.plot(theta_list)
+            plt.xlabel(&#34;Steps&#34;)
+            plt.ylabel(&#34;Angle&#34;)
+            plt.legend([&#34;q&#34;])
+            plt.title(&#34;Swing Up Angle&#34;)
+            plt.show()
+            # plot the angular velocities
+            plt.plot(theta_dot_list)
+            plt.xlabel(&#34;Steps&#34;)
+            plt.ylabel(&#34;Angular Velocity&#34;)
+            plt.legend([&#34;dq&#34;])
+            plt.title(&#34;Swing Up Angular Velocity&#34;)
+            plt.show()
+            # plot the torques
+            plt.plot(torque_list)
+            plt.xlabel(&#34;Steps&#34;)
+            plt.ylabel(&#34;Torque&#34;)
+            plt.legend([&#34;tau&#34;])
+            plt.title(&#34;Swing Up Torque&#34;)
+            plt.show()
+        # if the pendulum is double
+        else:
+            # plot the angles
+            plt.plot(theta_list)
+            plt.xlabel(&#34;Steps&#34;)
+            plt.ylabel(&#34;Angles&#34;)
+            plt.legend([&#34;q1&#34;, &#34;q2&#34;])
+            plt.title(&#34;Swing Up Angles&#34;)
+            plt.show()
+            # plot the angular velocities
+            plt.plot(theta_dot_list)
+            plt.xlabel(&#34;Steps&#34;)
+            plt.ylabel(&#34;Angular Velocities&#34;)
+            plt.legend([&#34;dq1&#34;, &#34;dq2&#34;])
+            plt.title(&#34;Swing Up Angular Velocities&#34;)
+            plt.show()
+            # plot the torques
+            plt.plot(torque_list)
+            plt.xlabel(&#34;Steps&#34;)
+            plt.ylabel(&#34;Torques&#34;)
+            plt.legend([&#34;tau1&#34;, &#34;tau2&#34;])
+            plt.title(&#34;Swing Up Torques&#34;)
+            plt.show()</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.DQN.Agent.Agent.parse_ini"><code class="name flex">
+<span>def <span class="ident">parse_ini</span></span>(<span>self, ini_file)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parse the ini file with the env parameters</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parse_ini(self, ini_file):
+    &#34;&#34;&#34;
+    Parse the ini file with the env parameters
+    &#34;&#34;&#34;
+    config = configparser.ConfigParser()
+    config.read(ini_file)
+
+    if self.nJoint == 1:
+        # parse the &#39;simple_pendulum&#39; section
+        return config[&#39;simple_pendulum&#39;]
+    else:
+        # parse the &#39;double_pendulum&#39; section
+        return config[&#39;double_pendulum&#39;]</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.DQN.Agent.Agent.plot_value_policy"><code class="name flex">
+<span>def <span class="ident">plot_value_policy</span></span>(<span>self, visual='2D', resolution=10, final=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Plot the value function and the policy of single pendulum</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_value_policy(self, visual=&#39;2D&#39;, resolution=10, final=False):
+    &#34;&#34;&#34;
+    Plot the value function and the policy of single pendulum
+    &#34;&#34;&#34;
+    # Load the weights
+    if final:
+        self.q_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[0]))
+        self.q_target_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[1]))
+    else:
+        self.q_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[0]))
+        self.q_target_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[1]))
+
+    # Discretize the state space
+    theta = np.linspace(-np.pi, np.pi, resolution)
+    theta_dot = np.linspace(-self.env.vmax, self.env.vmax, resolution)
+
+    # Create meshgrid
+    theta_mesh, theta_dot_mesh = np.meshgrid(theta, theta_dot)
+
+    # Initialize value function and policy arrays
+    V = np.zeros_like(theta_mesh)
+    P = np.zeros_like(theta_mesh)
+
+    # Iterate over each state in the meshgrid
+    for i in range(resolution):
+        for j in range(resolution):
+            state = np.array([theta_mesh[i, j], theta_dot_mesh[i, j]])
+            state_tensor = tf.constant(state, dtype=tf.float32)
+            q_values = self.q_net.model(state_tensor[None])[0]
+            V[i, j] = tf.reduce_max(q_values)
+            P[i, j] = tf.argmax(q_values)
+            # map the action index to the action value
+            P[i, j] = self.env.actions[int(P[i, j])]
+    
+    if visual==&#39;3D&#39;:
+        # Set the viewing angles
+        elevation = 90  # Viewing angle from above
+        azimuth = -90  # Rotate around the z-axis
+
+        # Create 3D plots
+        fig = plt.figure(figsize=(10, 5))
+        ax1 = fig.add_subplot(121, projection=&#39;3d&#39;)
+        value_surf = ax1.plot_surface(theta_mesh, theta_dot_mesh, V, cmap=cm.viridis)
+        ax1.view_init(elevation, azimuth)  # Set the viewing angles
+        ax1.set_xlabel(&#39;q&#39;)
+        ax1.set_ylabel(&#39;dq&#39;)
+        ax1.set_zlabel(&#39;Value&#39;)
+        ax1.set_title(&#39;Value Function&#39;)
+        fig.colorbar(value_surf, shrink=0.5, aspect=5)
+
+        ax2 = fig.add_subplot(122, projection=&#39;3d&#39;)
+        policy_surf = ax2.plot_surface(theta_mesh, theta_dot_mesh, P, cmap=cm.Spectral)
+        ax2.view_init(elevation, azimuth)  # Set the viewing angles
+        ax2.set_xlabel(&#39;q&#39;)
+        ax2.set_ylabel(&#39;dq&#39;)
+        ax2.set_zlabel(&#39;Action&#39;)
+        ax2.set_title(&#39;Policy Function&#39;)
+        fig.colorbar(policy_surf, shrink=0.5, aspect=5)
+    else:
+        # Set Seaborn style
+        sns.set()
+
+        # Create 2D plots with colormaps using Seaborn
+        fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+
+        # Plot the value function
+        ax1 = axes[0]
+        sns.heatmap(V, cmap=&#39;viridis&#39;, ax=ax1, cbar=True)
+        # set ticks as theta and theta_dot
+        ax1.set_xticks(np.linspace(0, resolution, 5))
+        ax1.set_xticklabels([-3, -1, 0, 1, 3])
+        ax1.set_yticks(np.linspace(0, resolution, 5))
+        ax1.set_yticklabels(np.linspace(-self.env.vmax, self.env.vmax, 5, dtype=int))
+        ax1.set_xlabel(&#39;q&#39;)
+        ax1.set_ylabel(&#39;dq&#39;)
+        ax1.set_title(&#39;Value Function&#39;)
+
+        # Plot the policy
+        ax2 = axes[1]
+        sns.heatmap(P, cmap=&#39;Spectral&#39;, ax=ax2, cbar=True)
+        # set ticks as theta and theta_dot
+        ax2.set_xticks(np.linspace(0, resolution, 5))
+        ax2.set_xticklabels([-3, -1, 0, 1, 3])
+        ax2.set_yticks(np.linspace(0, resolution, 5))
+        ax2.set_yticklabels(np.linspace(-self.env.vmax, self.env.vmax, 5, dtype=int))
+        ax2.set_xlabel(&#39;q&#39;)
+        ax2.set_ylabel(&#39;dq&#39;)
+        ax2.set_title(&#39;Policy Function&#39;)
+        plt.tight_layout()
+
+    plt.show()</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.DQN.Agent.Agent.policy"><code class="name flex">
+<span>def <span class="ident">policy</span></span>(<span>self, observation, type='epsilon_greedy')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Choose an action based on the policy</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def policy(self, observation, type=&#39;epsilon_greedy&#39;):
+    &#34;&#34;&#34;
+    Choose an action based on the policy
+    &#34;&#34;&#34;
+    if type == &#39;epsilon_greedy&#39;:
+        if np.random.random() &lt; self.epsilon:
+            action = np.random.choice(self.action_space)
+        else:
+            action = np.argmax(self.q_net.predict(np.array([observation])))
+    elif type == &#39;greedy&#39;:
+        action = np.argmax(self.q_net.predict(np.array([observation])))
+    elif type == &#39;random&#39;:
+        action = np.random.choice(self.action_space)
+    else:
+        raise Exception(&#34;Unknown policy type&#34;)
+    
+    return action</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.DQN.Agent.Agent.save_metrics"><code class="name flex">
+<span>def <span class="ident">save_metrics</span></span>(<span>self, episode, episode_reward, last_loss, last_epsilon, episode_time)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Save the metrics in a dataframe and export it to a csv file</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_metrics(self, episode, episode_reward, last_loss, last_epsilon, episode_time):
+    &#34;&#34;&#34;
+    Save the metrics in a dataframe and export it to a csv file
+    &#34;&#34;&#34;
+    # if the dataframe is empty, create it
+    if self.metrics_df.empty:
+        self.metrics_df = pd.DataFrame(columns=[&#39;episode&#39;, &#39;reward&#39;, &#39;loss&#39;, &#39;epsilon&#39;, &#39;time&#39;])
+        timestamp_ep = datetime.now().strftime(&#34;%Y%m%d_%H%M%S&#34;)
+        self.metrics_name = self.name_model + &#39;_&#39; + timestamp_ep + &#39;.csv&#39;
+    
+    # append the metrics to the dataframe using iloc
+    self.metrics_df.loc[len(self.metrics_df)] = [episode, episode_reward, last_loss, last_epsilon, episode_time]
+    # export the dataframe to a csv file with timestamp
+    self.metrics_df.to_csv(os.path.join(self.metrics_folder, self.metrics_name), index=False)</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.DQN.Agent.Agent.train"><code class="name flex">
+<span>def <span class="ident">train</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Train the network</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def train(self):
+    &#34;&#34;&#34;
+    Train the network
+    &#34;&#34;&#34;
+    # check if the replay buffer has enough experiences
+    if len(self.replay_buffer.gameplay_experiences) &lt; self.batch_size:
+        return
+    
+    # sample a batch of experiences
+    states, actions, rewards, new_states, dones = self.replay_buffer.sample_batch(self.batch_size)
+
+    # predict the q values of the current states
+    q_predicted = self.q_net.predict(states)
+    # predict the q values of the next states
+    q_next = self.q_target_net.predict(new_states)
+    # get the maximum q value of the next states
+    q_max_next = np.max(q_next, axis=1)
+    # copy the q values of the current states
+    q_target = q_predicted.copy()
+    #q_target = tf.identity(q_predicted)
+    
+    for i in range(self.batch_size):
+        # Q(s, a) = r + γ * max(Q(s&#39;, a&#39;)) * (1 - done)
+        # if the next state is terminal, then the q value is just the reward
+        # otherwise, estimate the q value using the target network
+        q_target[i, actions[i]] = rewards[i] + self.discount_factor * q_max_next[i] * (1 - dones[i])
+    
+    # train the network in batches
+    self.q_net.train_on_batch(states, q_target)
+    loss = self.q_net.evaluate(states, q_target, verbose=0)
+    # loss = self.q_net.train_batch_gradientTape(states, q_target)
+    # append the loss
+    self.loss.append(loss)
+
+    # decay the epsilon
+    self.epsilon = self.epsilon - self.epsilon_decay if self.epsilon &gt; self.epsilon_final else self.epsilon_final
+    self.step_counter += 1
+
+    # if the step counter is a multiple of the update rate, update the target network
+    if self.step_counter % self.update_rate == 0:
+        self.q_target_net.model.set_weights(self.q_net.model.get_weights())
+        # print(&#34;Target network updated&#34;)</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.DQN.Agent.Agent.train_model"><code class="name flex">
+<span>def <span class="ident">train_model</span></span>(<span>self, render=True, plot=True, verbose=False, soft_start=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Train the model for a number of episodes and plot the reward</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def train_model(self, render=True, plot=True, verbose=False, soft_start=False):
+    &#34;&#34;&#34;
+    Train the model for a number of episodes and plot the reward
+    &#34;&#34;&#34;
+
+    if soft_start:
+        # load the weights
+        self.q_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[0]))
+        self.q_target_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[1]))
+
+    start_training_time = time.time()
+    for episode in range(self.train_episodes):
+        observation = self.env.reset()
+        done = False
+        episode_reward = 0
+        self.loss = []
+        while not done:
+            if render:
+                self.env.render()
+
+            # copy of the observation to store in the replay buffer
+            # because when passing the env reference, the old observation gets overwritten
+            observation_copy = copy.copy(observation)
+            action = self.policy(observation, &#39;epsilon_greedy&#39;)
+            new_observation, reward, done = self.env.step(self.env.actions[action])
+            new_observation_copy = copy.copy(new_observation)
+            episode_reward += reward
+            # store the experience in the replay buffer
+            self.replay_buffer.store_tuple(observation_copy, action, reward, new_observation_copy, done)
+            observation = new_observation_copy
+            self.train()
+            if verbose:
+                if len(self.loss) &gt; 0: 
+                    print(&#34;Episode: {}, Step: {}, Reward: {}, Loss: {}&#34;.format(episode, self.env.iterCount, episode_reward, self.loss[-1]))
+                else:
+                    print(&#34;Episode: {}, Step: {}, Reward: {}&#34;.format(episode, self.env.iterCount, episode_reward))
+        if len(self.loss) &gt; 0:
+            # average of episode reward and loss
+            avg_episode_reward = episode_reward / self.env.iterCount
+            # average of the list of losses of the last steps
+            avg_episode_loss = np.mean(self.loss[-self.env.iterCount:])
+            self.save_metrics(episode, avg_episode_reward, avg_episode_loss, self.epsilon, time.time() - start_training_time)
+        else:
+            self.save_metrics(episode, episode_reward, None, self.epsilon, time.time() - start_training_time)
+    
+        # save the weights every 10 episodes
+        if episode % 10 == 0:
+            self.q_net.model.save_weights(os.path.join(self.weights_folder, self.weights_name[0]))
+            self.q_target_net.model.save_weights(os.path.join(self.weights_folder, self.weights_name[1]))
+        
+        # clear the session to avoid memory leaks
+        K.clear_session()       
+    
+    self.training_time = time.time() - start_training_time
+    print(&#34;Training time: {}&#34;.format(self.training_time))
+
+    if plot:
+        # plot loss vs episodes
+        plt.plot(self.loss)
+        plt.xlabel(&#34;Final Episode Steps&#34;)
+        plt.ylabel(&#34;Final Loss&#34;)
+        plt.show()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="DQN-SwingUp.DQN" href="index.html">DQN-SwingUp.DQN</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="DQN-SwingUp.DQN.Agent.Agent" href="#DQN-SwingUp.DQN.Agent.Agent">Agent</a></code></h4>
+<ul class="two-column">
+<li><code><a title="DQN-SwingUp.DQN.Agent.Agent.evaluate_model" href="#DQN-SwingUp.DQN.Agent.Agent.evaluate_model">evaluate_model</a></code></li>
+<li><code><a title="DQN-SwingUp.DQN.Agent.Agent.parse_ini" href="#DQN-SwingUp.DQN.Agent.Agent.parse_ini">parse_ini</a></code></li>
+<li><code><a title="DQN-SwingUp.DQN.Agent.Agent.plot_value_policy" href="#DQN-SwingUp.DQN.Agent.Agent.plot_value_policy">plot_value_policy</a></code></li>
+<li><code><a title="DQN-SwingUp.DQN.Agent.Agent.policy" href="#DQN-SwingUp.DQN.Agent.Agent.policy">policy</a></code></li>
+<li><code><a title="DQN-SwingUp.DQN.Agent.Agent.save_metrics" href="#DQN-SwingUp.DQN.Agent.Agent.save_metrics">save_metrics</a></code></li>
+<li><code><a title="DQN-SwingUp.DQN.Agent.Agent.train" href="#DQN-SwingUp.DQN.Agent.Agent.train">train</a></code></li>
+<li><code><a title="DQN-SwingUp.DQN.Agent.Agent.train_model" href="#DQN-SwingUp.DQN.Agent.Agent.train_model">train_model</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

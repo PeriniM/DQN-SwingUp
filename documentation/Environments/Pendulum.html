@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>DQN-SwingUp.Environments.Pendulum API documentation</title>
+<meta name="description" content="Create a simulation environment for a N-pendulum.
+Example of use: …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>DQN-SwingUp.Environments.Pendulum</code></h1>
+</header>
+<section id="section-intro">
+<p>Create a simulation environment for a N-pendulum.
+Example of use:</p>
+<p>env = Pendulum(N)
+env.reset()</p>
+<p>for i in range(1000):
+env.step(zero(env.nu))
+env.render()</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#39;&#39;&#39;
+Create a simulation environment for a N-pendulum.
+Example of use:
+
+env = Pendulum(N)
+env.reset()
+
+for i in range(1000):
+   env.step(zero(env.nu))
+   env.render()
+
+&#39;&#39;&#39;
+
+import numpy as np
+import pinocchio as pin
+from Environments.Display import Display
+from numpy.linalg import inv
+import time
+
+
+class Visual:
+    &#39;&#39;&#39;
+    Class representing one 3D mesh of the robot, to be attached to a joint. The class contains:
+    * the name of the 3D objects inside Gepetto viewer.
+    * the ID of the joint in the kinematic tree to which the body is attached.
+    * the placement of the body with respect to the joint frame.
+    This class is only used in the list Robot.visuals (see below).
+    &#39;&#39;&#39;
+    def __init__(self, name, jointParent, placement):
+        self.name = name                  # Name in gepetto viewer
+        self.jointParent = jointParent    # ID (int) of the joint 
+        self.placement = placement        # placement of the body wrt joint, i.e. bodyMjoint
+    
+    def place(self, display, oMjoint):
+        oMbody = oMjoint*self.placement
+        display.place(self.name,oMbody,False)
+
+class Pendulum:
+    &#39;&#39;&#39;
+    Define a class Pendulum with nbJoint joints.
+    The members of the class are:
+    * viewer: a display encapsulating a gepetto viewer client to create 3D objects and place them.
+    * model: the kinematic tree of the robot.
+    * data: the temporary variables to be used by the kinematic algorithms.
+    * visuals: the list of all the &#39;visual&#39; 3D objects to render the robot, each element of the list being
+    an object Visual (see above).    
+    &#39;&#39;&#39;
+
+    def __init__(self, nbJoint=1, noise_stddev=0.0):
+        &#39;&#39;&#39;Create a Pinocchio model of a N-pendulum, with N the argument &lt;nbJoint&gt;.&#39;&#39;&#39;
+        self.viewer     = Display()
+        self.visuals    = []
+        self.model      = pin.Model()
+        self.createPendulum(nbJoint)
+        self.data       = self.model.createData()
+        self.noise_stddev = noise_stddev
+
+        self.nbJoint    = nbJoint
+        self.q0         = np.zeros(self.model.nq)
+
+        self.DT         = 5e-2   # Time step length
+        self.NDT        = 1      # Number of Euler steps per integration (internal)
+        self.Kf         = .10    # Friction coefficient
+        self.vmax       = 8.0    # Max velocity (clipped if larger)
+        self.umax       = 15.0    # Max torque   (clipped if larger)
+        self.withSinCos = False  # If true, state is [cos(q),sin(q),qdot], else [q,qdot]
+
+        if self.nbJoint==1:
+            self.name = &#34;1-pendulum&#34;
+        else:
+            self.name = str(self.nbJoint)+&#34;-pendulum&#34;
+
+        self.num_state = self.model.nq + self.model.nv
+        
+        self.iterCount  = 0      # Counter of steps
+        self.done       = False  # Flag to indicate end of episode
+        self.r_cumul = 0.0
+        self.r_cumul_old = 0.0
+
+    def createPendulum(self, nbJoint, rootId=0, prefix=&#39;&#39;, jointPlacement=None):
+        color   = [red,green,blue,transparency] = [1,1,0.78,1.0]
+        colorred = [1.0,0.0,0.0,1.0]
+
+        jointId = rootId
+        jointPlacement     = jointPlacement if jointPlacement!=None else pin.SE3.Identity()
+        length = 1.0
+        mass = length
+        inertia = pin.Inertia(mass,
+                              np.array([0.0,0.0,length/2]).T,
+                              mass/5*np.diagflat([ 1e-2,length**2,  1e-2 ]) )
+
+        for i in range(nbJoint):
+            istr = str(i)
+            name      = prefix+&#34;joint&#34;+istr
+            jointName = name+&#34;_joint&#34;
+            jointId   = self.model.addJoint(jointId, pin.JointModelRY(), jointPlacement, jointName)
+            self.model.appendBodyToJoint(jointId, inertia,pin.SE3.Identity())
+            try:self.viewer.viewer.gui.addSphere(&#39;world/&#39;+prefix+&#39;sphere&#39;+istr, 0.15,colorred)
+            except: pass
+            self.visuals.append( Visual(&#39;world/&#39;+prefix+&#39;sphere&#39;+istr, jointId, pin.SE3.Identity()) )
+            try:self.viewer.viewer.gui.addCapsule(&#39;world/&#39;+prefix+&#39;arm&#39;+istr, .1,.8*length, color)
+            except:pass
+            self.visuals.append( Visual(&#39;world/&#39;+prefix+&#39;arm&#39;+istr, jointId,
+                                        pin.SE3(np.eye(3), np.array([0.,0.,length/2]))))
+            jointPlacement     = pin.SE3(np.eye(3), np.array([0.0,0.0,length]).T)
+
+        self.model.addFrame( pin.Frame(&#39;tip&#39;, jointId, 0, jointPlacement, pin.FrameType.OP_FRAME) )
+
+    def display(self, q):
+        &#39;&#39;&#39; Display the robot in the viewer &#39;&#39;&#39;
+        pin.forwardKinematics(self.model, self.data,q)
+        for visual in self.visuals:
+            visual.place( self.viewer, self.data.oMi[visual.jointParent] )
+        self.viewer.viewer.gui.refresh()
+
+
+    &#39;&#39;&#39; Size of the q vector &#39;&#39;&#39;
+    @property 
+    def nq(self): return self.model.nq 
+    &#39;&#39;&#39; Size of the v vector &#39;&#39;&#39;
+    @property
+    def nv(self): return self.model.nv
+    &#39;&#39;&#39; Size of the x vector &#39;&#39;&#39;
+    @property
+    def nx(self): return self.nq+self.nv
+#    @property
+#    def nobs(self): return self.nx+self.withSinCos
+    &#39;&#39;&#39; Size of the u vector &#39;&#39;&#39;
+    @property
+    def nu(self): return self.nv
+
+    def reset(self, x0=None):
+        &#39;&#39;&#39; Reset the state of the environment to x0 &#39;&#39;&#39;
+        if x0 is None: 
+            q0 = np.pi*(np.random.rand(self.nq)*2-1)
+            v0 = np.random.rand(self.nv)*2-1
+            x0 = np.vstack([q0,v0]).ravel()
+        
+        assert len(x0)==self.nx
+        self.x = x0.copy()
+        self.r = 0.0
+        self.r_cumul = 0.0
+        self.r_cumul_old = 0.0
+        self.iterCount = 0
+        self.done = False
+        return self.obs(self.x)
+    
+    def reset_swingUp(self, x0=None):
+        &#39;&#39;&#39;
+        Set the state where the pendulum is hanging down
+        &#39;&#39;&#39;
+        if x0 is None:
+            q0 = np.zeros(self.nq)
+            # first angle must be pi
+            q0[0] = np.pi
+            v0 = np.zeros(self.nv)
+            x0 = np.vstack([q0,v0]).ravel()
+        
+        assert len(x0)==self.nx
+        self.x = x0.copy()
+        self.r = 0.0
+        self.r_cumul = 0.0
+        self.r_cumul_old = 0.0
+        self.iterCount = 0
+        self.done = False
+        return self.obs(self.x)
+
+    def reset_policy(self, reset_count=200):
+        &#39;&#39;&#39; Reset the system when a condition is met&#39;&#39;&#39;
+        if self.iterCount &gt; reset_count:
+            self.done = True
+        # if self.iterCount % 20 == 0:
+        #     # if new reward is greater than the 15% of the old
+        #     if np.abs(self.r_cumul - self.r_cumul_old) &gt; 15.0:
+        #         self.done = True
+        #     self.r_cumul_old = self.r_cumul
+
+    def step(self, u):
+        &#39;&#39;&#39; Simulate one time step &#39;&#39;&#39;
+        u = np.array([u])
+        if self.nbJoint&gt;1:
+            # append zeros to u to match the size of the action space
+            u = np.hstack([u, np.zeros(self.nbJoint-1)])
+
+        assert(len(u)==self.nu)
+        _,self.r = self.dynamics(self.x, u)
+        self.iterCount += 1
+        self.r_cumul += self.r
+        self.reset_policy(self.maxIter)
+        return self.obs(self.x), self.r, self.done
+
+    def obs(self, x):
+        &#39;&#39;&#39; Compute the observation of the state &#39;&#39;&#39;
+        if self.withSinCos:
+            return np.vstack([ np.vstack([np.cos(qi),np.sin(qi)]) for qi in x[:self.nq] ] 
+                             + [x[self.nq:]],)
+        else: return x.copy()
+
+    def tip(self, q):
+        &#39;&#39;&#39;Return the altitude of pendulum tip&#39;&#39;&#39;
+        pin.framesKinematics(self.model, self.data,q)
+        return self.data.oMf[1].translation[2,0]
+
+    def dynamics(self, x, u, display=False):
+        &#39;&#39;&#39;
+        Dynamic function: x,u -&gt; xnext=f(x,y).
+        Put the result in x (the initial value is destroyed). 
+        Also compute the cost of taking this step.
+        Return x for convenience along with the cost.
+        &#39;&#39;&#39;
+
+        modulePi = lambda th: (th+np.pi)%(2*np.pi)-np.pi
+        sumsq    = lambda x : np.sum(np.square(x))
+
+        cost = 0.0
+        q = modulePi(x[:self.nq])
+        v = x[self.nq:]
+        u = np.clip(np.reshape(np.array(u),self.nu),-self.umax,self.umax)
+
+        DT = self.DT/self.NDT
+        for i in range(self.NDT):
+            pin.computeAllTerms(self.model,self.data,q,v)
+            M   = self.data.M
+            b   = self.data.nle
+            a   = np.dot(inv(M),(u-self.Kf*v-b))
+            a   = a.reshape(self.nv) + np.random.randn(self.nv)*self.noise_stddev
+            self.a = a
+
+            q    += (v+0.5*DT*a)*DT
+            v    += a*DT
+            cost += (sumsq(q) + 1e-1*sumsq(v) + 1e-3*sumsq(u))*DT # cost function
+
+            if display:
+                self.display(q)
+                time.sleep(1e-4)
+
+        x[:self.nq] = modulePi(q)
+        x[self.nq:] = np.clip(v,-self.vmax,self.vmax)
+        
+        return x,-cost
+     
+    def render(self):
+        q = self.x.ravel()[:self.nq]
+        self.display(q.ravel())
+        time.sleep(self.DT/10)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum"><code class="flex name class">
+<span>class <span class="ident">Pendulum</span></span>
+<span>(</span><span>nbJoint=1, noise_stddev=0.0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Define a class Pendulum with nbJoint joints.
+The members of the class are:
+* viewer: a display encapsulating a gepetto viewer client to create 3D objects and place them.
+* model: the kinematic tree of the robot.
+* data: the temporary variables to be used by the kinematic algorithms.
+* visuals: the list of all the 'visual' 3D objects to render the robot, each element of the list being
+an object Visual (see above).
+</p>
+<p>Create a Pinocchio model of a N-pendulum, with N the argument <nbJoint>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Pendulum:
+    &#39;&#39;&#39;
+    Define a class Pendulum with nbJoint joints.
+    The members of the class are:
+    * viewer: a display encapsulating a gepetto viewer client to create 3D objects and place them.
+    * model: the kinematic tree of the robot.
+    * data: the temporary variables to be used by the kinematic algorithms.
+    * visuals: the list of all the &#39;visual&#39; 3D objects to render the robot, each element of the list being
+    an object Visual (see above).    
+    &#39;&#39;&#39;
+
+    def __init__(self, nbJoint=1, noise_stddev=0.0):
+        &#39;&#39;&#39;Create a Pinocchio model of a N-pendulum, with N the argument &lt;nbJoint&gt;.&#39;&#39;&#39;
+        self.viewer     = Display()
+        self.visuals    = []
+        self.model      = pin.Model()
+        self.createPendulum(nbJoint)
+        self.data       = self.model.createData()
+        self.noise_stddev = noise_stddev
+
+        self.nbJoint    = nbJoint
+        self.q0         = np.zeros(self.model.nq)
+
+        self.DT         = 5e-2   # Time step length
+        self.NDT        = 1      # Number of Euler steps per integration (internal)
+        self.Kf         = .10    # Friction coefficient
+        self.vmax       = 8.0    # Max velocity (clipped if larger)
+        self.umax       = 15.0    # Max torque   (clipped if larger)
+        self.withSinCos = False  # If true, state is [cos(q),sin(q),qdot], else [q,qdot]
+
+        if self.nbJoint==1:
+            self.name = &#34;1-pendulum&#34;
+        else:
+            self.name = str(self.nbJoint)+&#34;-pendulum&#34;
+
+        self.num_state = self.model.nq + self.model.nv
+        
+        self.iterCount  = 0      # Counter of steps
+        self.done       = False  # Flag to indicate end of episode
+        self.r_cumul = 0.0
+        self.r_cumul_old = 0.0
+
+    def createPendulum(self, nbJoint, rootId=0, prefix=&#39;&#39;, jointPlacement=None):
+        color   = [red,green,blue,transparency] = [1,1,0.78,1.0]
+        colorred = [1.0,0.0,0.0,1.0]
+
+        jointId = rootId
+        jointPlacement     = jointPlacement if jointPlacement!=None else pin.SE3.Identity()
+        length = 1.0
+        mass = length
+        inertia = pin.Inertia(mass,
+                              np.array([0.0,0.0,length/2]).T,
+                              mass/5*np.diagflat([ 1e-2,length**2,  1e-2 ]) )
+
+        for i in range(nbJoint):
+            istr = str(i)
+            name      = prefix+&#34;joint&#34;+istr
+            jointName = name+&#34;_joint&#34;
+            jointId   = self.model.addJoint(jointId, pin.JointModelRY(), jointPlacement, jointName)
+            self.model.appendBodyToJoint(jointId, inertia,pin.SE3.Identity())
+            try:self.viewer.viewer.gui.addSphere(&#39;world/&#39;+prefix+&#39;sphere&#39;+istr, 0.15,colorred)
+            except: pass
+            self.visuals.append( Visual(&#39;world/&#39;+prefix+&#39;sphere&#39;+istr, jointId, pin.SE3.Identity()) )
+            try:self.viewer.viewer.gui.addCapsule(&#39;world/&#39;+prefix+&#39;arm&#39;+istr, .1,.8*length, color)
+            except:pass
+            self.visuals.append( Visual(&#39;world/&#39;+prefix+&#39;arm&#39;+istr, jointId,
+                                        pin.SE3(np.eye(3), np.array([0.,0.,length/2]))))
+            jointPlacement     = pin.SE3(np.eye(3), np.array([0.0,0.0,length]).T)
+
+        self.model.addFrame( pin.Frame(&#39;tip&#39;, jointId, 0, jointPlacement, pin.FrameType.OP_FRAME) )
+
+    def display(self, q):
+        &#39;&#39;&#39; Display the robot in the viewer &#39;&#39;&#39;
+        pin.forwardKinematics(self.model, self.data,q)
+        for visual in self.visuals:
+            visual.place( self.viewer, self.data.oMi[visual.jointParent] )
+        self.viewer.viewer.gui.refresh()
+
+
+    &#39;&#39;&#39; Size of the q vector &#39;&#39;&#39;
+    @property 
+    def nq(self): return self.model.nq 
+    &#39;&#39;&#39; Size of the v vector &#39;&#39;&#39;
+    @property
+    def nv(self): return self.model.nv
+    &#39;&#39;&#39; Size of the x vector &#39;&#39;&#39;
+    @property
+    def nx(self): return self.nq+self.nv
+#    @property
+#    def nobs(self): return self.nx+self.withSinCos
+    &#39;&#39;&#39; Size of the u vector &#39;&#39;&#39;
+    @property
+    def nu(self): return self.nv
+
+    def reset(self, x0=None):
+        &#39;&#39;&#39; Reset the state of the environment to x0 &#39;&#39;&#39;
+        if x0 is None: 
+            q0 = np.pi*(np.random.rand(self.nq)*2-1)
+            v0 = np.random.rand(self.nv)*2-1
+            x0 = np.vstack([q0,v0]).ravel()
+        
+        assert len(x0)==self.nx
+        self.x = x0.copy()
+        self.r = 0.0
+        self.r_cumul = 0.0
+        self.r_cumul_old = 0.0
+        self.iterCount = 0
+        self.done = False
+        return self.obs(self.x)
+    
+    def reset_swingUp(self, x0=None):
+        &#39;&#39;&#39;
+        Set the state where the pendulum is hanging down
+        &#39;&#39;&#39;
+        if x0 is None:
+            q0 = np.zeros(self.nq)
+            # first angle must be pi
+            q0[0] = np.pi
+            v0 = np.zeros(self.nv)
+            x0 = np.vstack([q0,v0]).ravel()
+        
+        assert len(x0)==self.nx
+        self.x = x0.copy()
+        self.r = 0.0
+        self.r_cumul = 0.0
+        self.r_cumul_old = 0.0
+        self.iterCount = 0
+        self.done = False
+        return self.obs(self.x)
+
+    def reset_policy(self, reset_count=200):
+        &#39;&#39;&#39; Reset the system when a condition is met&#39;&#39;&#39;
+        if self.iterCount &gt; reset_count:
+            self.done = True
+        # if self.iterCount % 20 == 0:
+        #     # if new reward is greater than the 15% of the old
+        #     if np.abs(self.r_cumul - self.r_cumul_old) &gt; 15.0:
+        #         self.done = True
+        #     self.r_cumul_old = self.r_cumul
+
+    def step(self, u):
+        &#39;&#39;&#39; Simulate one time step &#39;&#39;&#39;
+        u = np.array([u])
+        if self.nbJoint&gt;1:
+            # append zeros to u to match the size of the action space
+            u = np.hstack([u, np.zeros(self.nbJoint-1)])
+
+        assert(len(u)==self.nu)
+        _,self.r = self.dynamics(self.x, u)
+        self.iterCount += 1
+        self.r_cumul += self.r
+        self.reset_policy(self.maxIter)
+        return self.obs(self.x), self.r, self.done
+
+    def obs(self, x):
+        &#39;&#39;&#39; Compute the observation of the state &#39;&#39;&#39;
+        if self.withSinCos:
+            return np.vstack([ np.vstack([np.cos(qi),np.sin(qi)]) for qi in x[:self.nq] ] 
+                             + [x[self.nq:]],)
+        else: return x.copy()
+
+    def tip(self, q):
+        &#39;&#39;&#39;Return the altitude of pendulum tip&#39;&#39;&#39;
+        pin.framesKinematics(self.model, self.data,q)
+        return self.data.oMf[1].translation[2,0]
+
+    def dynamics(self, x, u, display=False):
+        &#39;&#39;&#39;
+        Dynamic function: x,u -&gt; xnext=f(x,y).
+        Put the result in x (the initial value is destroyed). 
+        Also compute the cost of taking this step.
+        Return x for convenience along with the cost.
+        &#39;&#39;&#39;
+
+        modulePi = lambda th: (th+np.pi)%(2*np.pi)-np.pi
+        sumsq    = lambda x : np.sum(np.square(x))
+
+        cost = 0.0
+        q = modulePi(x[:self.nq])
+        v = x[self.nq:]
+        u = np.clip(np.reshape(np.array(u),self.nu),-self.umax,self.umax)
+
+        DT = self.DT/self.NDT
+        for i in range(self.NDT):
+            pin.computeAllTerms(self.model,self.data,q,v)
+            M   = self.data.M
+            b   = self.data.nle
+            a   = np.dot(inv(M),(u-self.Kf*v-b))
+            a   = a.reshape(self.nv) + np.random.randn(self.nv)*self.noise_stddev
+            self.a = a
+
+            q    += (v+0.5*DT*a)*DT
+            v    += a*DT
+            cost += (sumsq(q) + 1e-1*sumsq(v) + 1e-3*sumsq(u))*DT # cost function
+
+            if display:
+                self.display(q)
+                time.sleep(1e-4)
+
+        x[:self.nq] = modulePi(q)
+        x[self.nq:] = np.clip(v,-self.vmax,self.vmax)
+        
+        return x,-cost
+     
+    def render(self):
+        q = self.x.ravel()[:self.nq]
+        self.display(q.ravel())
+        time.sleep(self.DT/10)</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum.nq"><code class="name">var <span class="ident">nq</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property 
+def nq(self): return self.model.nq </code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum.nu"><code class="name">var <span class="ident">nu</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def nu(self): return self.nv</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum.nv"><code class="name">var <span class="ident">nv</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def nv(self): return self.model.nv</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum.nx"><code class="name">var <span class="ident">nx</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def nx(self): return self.nq+self.nv</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum.createPendulum"><code class="name flex">
+<span>def <span class="ident">createPendulum</span></span>(<span>self, nbJoint, rootId=0, prefix='', jointPlacement=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def createPendulum(self, nbJoint, rootId=0, prefix=&#39;&#39;, jointPlacement=None):
+    color   = [red,green,blue,transparency] = [1,1,0.78,1.0]
+    colorred = [1.0,0.0,0.0,1.0]
+
+    jointId = rootId
+    jointPlacement     = jointPlacement if jointPlacement!=None else pin.SE3.Identity()
+    length = 1.0
+    mass = length
+    inertia = pin.Inertia(mass,
+                          np.array([0.0,0.0,length/2]).T,
+                          mass/5*np.diagflat([ 1e-2,length**2,  1e-2 ]) )
+
+    for i in range(nbJoint):
+        istr = str(i)
+        name      = prefix+&#34;joint&#34;+istr
+        jointName = name+&#34;_joint&#34;
+        jointId   = self.model.addJoint(jointId, pin.JointModelRY(), jointPlacement, jointName)
+        self.model.appendBodyToJoint(jointId, inertia,pin.SE3.Identity())
+        try:self.viewer.viewer.gui.addSphere(&#39;world/&#39;+prefix+&#39;sphere&#39;+istr, 0.15,colorred)
+        except: pass
+        self.visuals.append( Visual(&#39;world/&#39;+prefix+&#39;sphere&#39;+istr, jointId, pin.SE3.Identity()) )
+        try:self.viewer.viewer.gui.addCapsule(&#39;world/&#39;+prefix+&#39;arm&#39;+istr, .1,.8*length, color)
+        except:pass
+        self.visuals.append( Visual(&#39;world/&#39;+prefix+&#39;arm&#39;+istr, jointId,
+                                    pin.SE3(np.eye(3), np.array([0.,0.,length/2]))))
+        jointPlacement     = pin.SE3(np.eye(3), np.array([0.0,0.0,length]).T)
+
+    self.model.addFrame( pin.Frame(&#39;tip&#39;, jointId, 0, jointPlacement, pin.FrameType.OP_FRAME) )</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum.display"><code class="name flex">
+<span>def <span class="ident">display</span></span>(<span>self, q)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display the robot in the viewer</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display(self, q):
+    &#39;&#39;&#39; Display the robot in the viewer &#39;&#39;&#39;
+    pin.forwardKinematics(self.model, self.data,q)
+    for visual in self.visuals:
+        visual.place( self.viewer, self.data.oMi[visual.jointParent] )
+    self.viewer.viewer.gui.refresh()</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum.dynamics"><code class="name flex">
+<span>def <span class="ident">dynamics</span></span>(<span>self, x, u, display=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dynamic function: x,u -&gt; xnext=f(x,y).
+Put the result in x (the initial value is destroyed).
+Also compute the cost of taking this step.
+Return x for convenience along with the cost.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dynamics(self, x, u, display=False):
+    &#39;&#39;&#39;
+    Dynamic function: x,u -&gt; xnext=f(x,y).
+    Put the result in x (the initial value is destroyed). 
+    Also compute the cost of taking this step.
+    Return x for convenience along with the cost.
+    &#39;&#39;&#39;
+
+    modulePi = lambda th: (th+np.pi)%(2*np.pi)-np.pi
+    sumsq    = lambda x : np.sum(np.square(x))
+
+    cost = 0.0
+    q = modulePi(x[:self.nq])
+    v = x[self.nq:]
+    u = np.clip(np.reshape(np.array(u),self.nu),-self.umax,self.umax)
+
+    DT = self.DT/self.NDT
+    for i in range(self.NDT):
+        pin.computeAllTerms(self.model,self.data,q,v)
+        M   = self.data.M
+        b   = self.data.nle
+        a   = np.dot(inv(M),(u-self.Kf*v-b))
+        a   = a.reshape(self.nv) + np.random.randn(self.nv)*self.noise_stddev
+        self.a = a
+
+        q    += (v+0.5*DT*a)*DT
+        v    += a*DT
+        cost += (sumsq(q) + 1e-1*sumsq(v) + 1e-3*sumsq(u))*DT # cost function
+
+        if display:
+            self.display(q)
+            time.sleep(1e-4)
+
+    x[:self.nq] = modulePi(q)
+    x[self.nq:] = np.clip(v,-self.vmax,self.vmax)
+    
+    return x,-cost</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum.obs"><code class="name flex">
+<span>def <span class="ident">obs</span></span>(<span>self, x)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute the observation of the state</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def obs(self, x):
+    &#39;&#39;&#39; Compute the observation of the state &#39;&#39;&#39;
+    if self.withSinCos:
+        return np.vstack([ np.vstack([np.cos(qi),np.sin(qi)]) for qi in x[:self.nq] ] 
+                         + [x[self.nq:]],)
+    else: return x.copy()</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum.render"><code class="name flex">
+<span>def <span class="ident">render</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def render(self):
+    q = self.x.ravel()[:self.nq]
+    self.display(q.ravel())
+    time.sleep(self.DT/10)</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum.reset"><code class="name flex">
+<span>def <span class="ident">reset</span></span>(<span>self, x0=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Reset the state of the environment to x0</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reset(self, x0=None):
+    &#39;&#39;&#39; Reset the state of the environment to x0 &#39;&#39;&#39;
+    if x0 is None: 
+        q0 = np.pi*(np.random.rand(self.nq)*2-1)
+        v0 = np.random.rand(self.nv)*2-1
+        x0 = np.vstack([q0,v0]).ravel()
+    
+    assert len(x0)==self.nx
+    self.x = x0.copy()
+    self.r = 0.0
+    self.r_cumul = 0.0
+    self.r_cumul_old = 0.0
+    self.iterCount = 0
+    self.done = False
+    return self.obs(self.x)</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum.reset_policy"><code class="name flex">
+<span>def <span class="ident">reset_policy</span></span>(<span>self, reset_count=200)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Reset the system when a condition is met</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reset_policy(self, reset_count=200):
+    &#39;&#39;&#39; Reset the system when a condition is met&#39;&#39;&#39;
+    if self.iterCount &gt; reset_count:
+        self.done = True
+    # if self.iterCount % 20 == 0:
+    #     # if new reward is greater than the 15% of the old
+    #     if np.abs(self.r_cumul - self.r_cumul_old) &gt; 15.0:
+    #         self.done = True
+    #     self.r_cumul_old = self.r_cumul</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum.reset_swingUp"><code class="name flex">
+<span>def <span class="ident">reset_swingUp</span></span>(<span>self, x0=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set the state where the pendulum is hanging down</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reset_swingUp(self, x0=None):
+    &#39;&#39;&#39;
+    Set the state where the pendulum is hanging down
+    &#39;&#39;&#39;
+    if x0 is None:
+        q0 = np.zeros(self.nq)
+        # first angle must be pi
+        q0[0] = np.pi
+        v0 = np.zeros(self.nv)
+        x0 = np.vstack([q0,v0]).ravel()
+    
+    assert len(x0)==self.nx
+    self.x = x0.copy()
+    self.r = 0.0
+    self.r_cumul = 0.0
+    self.r_cumul_old = 0.0
+    self.iterCount = 0
+    self.done = False
+    return self.obs(self.x)</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum.step"><code class="name flex">
+<span>def <span class="ident">step</span></span>(<span>self, u)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Simulate one time step</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def step(self, u):
+    &#39;&#39;&#39; Simulate one time step &#39;&#39;&#39;
+    u = np.array([u])
+    if self.nbJoint&gt;1:
+        # append zeros to u to match the size of the action space
+        u = np.hstack([u, np.zeros(self.nbJoint-1)])
+
+    assert(len(u)==self.nu)
+    _,self.r = self.dynamics(self.x, u)
+    self.iterCount += 1
+    self.r_cumul += self.r
+    self.reset_policy(self.maxIter)
+    return self.obs(self.x), self.r, self.done</code></pre>
+</details>
+</dd>
+<dt id="DQN-SwingUp.Environments.Pendulum.Pendulum.tip"><code class="name flex">
+<span>def <span class="ident">tip</span></span>(<span>self, q)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the altitude of pendulum tip</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def tip(self, q):
+    &#39;&#39;&#39;Return the altitude of pendulum tip&#39;&#39;&#39;
+    pin.framesKinematics(self.model, self.data,q)
+    return self.data.oMf[1].translation[2,0]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="DQN-SwingUp.Environments.Pendulum.Visual"><code class="flex name class">
+<span>class <span class="ident">Visual</span></span>
+<span>(</span><span>name, jointParent, placement)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class representing one 3D mesh of the robot, to be attached to a joint. The class contains:
+* the name of the 3D objects inside Gepetto viewer.
+* the ID of the joint in the kinematic tree to which the body is attached.
+* the placement of the body with respect to the joint frame.
+This class is only used in the list Robot.visuals (see below).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Visual:
+    &#39;&#39;&#39;
+    Class representing one 3D mesh of the robot, to be attached to a joint. The class contains:
+    * the name of the 3D objects inside Gepetto viewer.
+    * the ID of the joint in the kinematic tree to which the body is attached.
+    * the placement of the body with respect to the joint frame.
+    This class is only used in the list Robot.visuals (see below).
+    &#39;&#39;&#39;
+    def __init__(self, name, jointParent, placement):
+        self.name = name                  # Name in gepetto viewer
+        self.jointParent = jointParent    # ID (int) of the joint 
+        self.placement = placement        # placement of the body wrt joint, i.e. bodyMjoint
+    
+    def place(self, display, oMjoint):
+        oMbody = oMjoint*self.placement
+        display.place(self.name,oMbody,False)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="DQN-SwingUp.Environments.Pendulum.Visual.place"><code class="name flex">
+<span>def <span class="ident">place</span></span>(<span>self, display, oMjoint)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def place(self, display, oMjoint):
+    oMbody = oMjoint*self.placement
+    display.place(self.name,oMbody,False)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="DQN-SwingUp.Environments" href="index.html">DQN-SwingUp.Environments</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum" href="#DQN-SwingUp.Environments.Pendulum.Pendulum">Pendulum</a></code></h4>
+<ul class="two-column">
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum.createPendulum" href="#DQN-SwingUp.Environments.Pendulum.Pendulum.createPendulum">createPendulum</a></code></li>
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum.display" href="#DQN-SwingUp.Environments.Pendulum.Pendulum.display">display</a></code></li>
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum.dynamics" href="#DQN-SwingUp.Environments.Pendulum.Pendulum.dynamics">dynamics</a></code></li>
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum.nq" href="#DQN-SwingUp.Environments.Pendulum.Pendulum.nq">nq</a></code></li>
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum.nu" href="#DQN-SwingUp.Environments.Pendulum.Pendulum.nu">nu</a></code></li>
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum.nv" href="#DQN-SwingUp.Environments.Pendulum.Pendulum.nv">nv</a></code></li>
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum.nx" href="#DQN-SwingUp.Environments.Pendulum.Pendulum.nx">nx</a></code></li>
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum.obs" href="#DQN-SwingUp.Environments.Pendulum.Pendulum.obs">obs</a></code></li>
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum.render" href="#DQN-SwingUp.Environments.Pendulum.Pendulum.render">render</a></code></li>
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum.reset" href="#DQN-SwingUp.Environments.Pendulum.Pendulum.reset">reset</a></code></li>
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum.reset_policy" href="#DQN-SwingUp.Environments.Pendulum.Pendulum.reset_policy">reset_policy</a></code></li>
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum.reset_swingUp" href="#DQN-SwingUp.Environments.Pendulum.Pendulum.reset_swingUp">reset_swingUp</a></code></li>
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum.step" href="#DQN-SwingUp.Environments.Pendulum.Pendulum.step">step</a></code></li>
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Pendulum.tip" href="#DQN-SwingUp.Environments.Pendulum.Pendulum.tip">tip</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="DQN-SwingUp.Environments.Pendulum.Visual" href="#DQN-SwingUp.Environments.Pendulum.Visual">Visual</a></code></h4>
+<ul class="">
+<li><code><a title="DQN-SwingUp.Environments.Pendulum.Visual.place" href="#DQN-SwingUp.Environments.Pendulum.Visual.place">place</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
