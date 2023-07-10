@@ -51,4 +51,7 @@ isFake = True
 - Set the train, evaluate and plot_colormaps flags in the main.py file
 - Run the main.py file
 
+## Papers
+- [Human-level control through deep reinforcement learning](https://www.nature.com/articles/nature14236)
+- [Implementing the Deep Q-Network](https://arxiv.org/pdf/1711.07478.pdf)
 
