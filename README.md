@@ -1,4 +1,4 @@
-# DQN Algorithm Single and Double Pendulum
+# DQN Algorithm N-Pendulum Swing-Up
 
 ## Introduction
 This project aims at implementing the DQN algorithm to solve the single and double pendulum swing-up problem. It uses Pinocchio library to compute the dynamics of the system and Gepetto Viewer to visualize the system. The DQN algorithm is implemented using Tensorflow 2.12.
@@ -18,7 +18,7 @@ This project aims at implementing the DQN algorithm to solve the single and doub
 ### Installation
 #### Ubuntu 20.04
 ```bash
-git clone https://github.com/PeriniM/ORC_Assignment_3.git
+git clone https://github.com/PeriniM/DQN-SwingUp.git
 cd ORC_Assignment_3/code
 python -m venv env
 source env/bin/activate
@@ -31,23 +31,23 @@ isFake = True
 ```
 
 ## Project Structure
-- 📄main.py
-- ⚙️config.ini
-- 📂DQN
-    - 📄Agent.py
-    - 📄DeepQNetwork.py
-    - 📄ReplayBuffer.py
-- 📂gepetto_pendulum
-    - 📄pendulum.py
-    - 📄display.py
-    - 📄FakeEnv.py
-- 📂saved_weights
-- 📂saved_metrics
-- 📂final_results
+- 📄[main.py](main.py)
+- ⚙️[config.ini](config.ini)
+- 📂[DQN](DQN)
+    - 📄[Agent.py](DQN/Agent.py)
+    - 📄[DeepQNetwork.py](DQN/DeepQNetwork.py)
+    - 📄[ReplayBuffer.py](DQN/ReplayBuffer.py)
+- 📂[Environments](Environments)
+    - 📄[Pendulum.py](Environments/Pendulum.py)
+    - 📄[Display.py](Environments/Display.py)
+    - 📄[FakeEnv.py](Environments/FakeEnv.py)
+- 📂[saved_weights](saved_weights)
+- 📂[saved_metrics](saved_metrics)
+- 📂[final_results](final_results)
 
 ## Usage
 - Set the parameters in the config.ini file
-- Set the environment an the number of joints in the main.py file
+- Set the environment and the number of joints in the main.py file
 - Set the train, evaluate and plot_colormaps flags in the main.py file
 - Run the main.py file
 
@@ -55,3 +55,5 @@ isFake = True
 - [Human-level control through deep reinforcement learning](https://www.nature.com/articles/nature14236)
 - [Implementing the Deep Q-Network](https://arxiv.org/pdf/1711.07478.pdf)
 
+## License
+[MIT](https://choosealicense.com/licenses/mit/)

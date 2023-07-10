@@ -13,7 +13,7 @@ for i in range(1000):
 
 import numpy as np
 import pinocchio as pin
-from gepetto_pendulum.display import Display
+from Environments.Display import Display
 from numpy.linalg import inv
 import time
 

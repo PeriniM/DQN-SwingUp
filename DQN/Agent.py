@@ -70,6 +70,7 @@ class Agent:
         self.name_model = self.env.name + '_'+str(self.action_steps)+'_'+str(self.hidden_dims)
         # path of the weights folder
         self.weights_folder = os.path.join(root_dir, 'saved_weights')
+        self.final_weights_folder = os.path.join(root_dir, 'final_results/'+self.env.name)
         self.weights_name = ['dqn_weights_' + self.name_model +'.h5',
                              'dqn_target_weights_' + self.name_model +'.h5']
         
@@ -207,13 +208,17 @@ class Agent:
             plt.ylabel("Final Loss")
             plt.show()
             
-    def evaluate_model(self, episodes, swingUp=False, render=True, plot=True, verbose=False):
+    def evaluate_model(self, episodes, swingUp=False, render=True, plot=True, verbose=False, final=False):
         """
         Evaluate the model for a number of episodes
         """
         # load the weights
-        self.q_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[0]))
-        self.q_target_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[1]))
+        if final:
+            self.q_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[0]))
+            self.q_target_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[1]))
+        else:
+            self.q_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[0]))
+            self.q_target_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[1]))
 
         theta_list = []
         theta_dot_list = []
@@ -294,13 +299,17 @@ class Agent:
                 plt.title("Swing Up Torques")
                 plt.show()
 
-    def plot_value_policy(self, visual='2D', resolution=10):
+    def plot_value_policy(self, visual='2D', resolution=10, final=False):
         """
         Plot the value function and the policy of single pendulum
         """
         # Load the weights
-        self.q_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[0]))
-        self.q_target_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[1]))
+        if final:
+            self.q_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[0]))
+            self.q_target_net.model.load_weights(os.path.join(self.final_weights_folder, self.weights_name[1]))
+        else:
+            self.q_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[0]))
+            self.q_target_net.model.load_weights(os.path.join(self.weights_folder, self.weights_name[1]))
 
         # Discretize the state space
         theta = np.linspace(-np.pi, np.pi, resolution)

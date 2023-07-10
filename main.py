@@ -1,5 +1,5 @@
-from gepetto_pendulum import pendulum as pdl
-from gepetto_pendulum import FakeEnv as fake
+from Environments import Pendulum as pdl
+from Environments import FakeEnv as fake
 from DQN.Agent import Agent
 
 isFake = False
@@ -22,7 +22,7 @@ if train:
     dqn_agent.train_model(render=False, plot=True, verbose=True, soft_start=False)
 
 if evaluate:
-    dqn_agent.evaluate_model(episodes=10, swingUp=True, render=True, verbose=True)
+    dqn_agent.evaluate_model(episodes=1, swingUp=True, render=True, verbose=True, final=True)
 
 if plot_colormaps and nJoints == 1:
-    dqn_agent.plot_value_policy('2D', resolution=100)
+    dqn_agent.plot_value_policy('2D', resolution=100, final=True)
