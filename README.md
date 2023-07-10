@@ -29,6 +29,7 @@ Pinocchio and Gepetto Viewer are not available. You can either install them in a
 ```python
 isFake = True
 ```
+## [Documentation](https://perinim.github.io/DQN-SwingUp/)
 
 ## Project Structure
 - 📄[main.py](main.py)
