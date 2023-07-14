@@ -3,7 +3,7 @@ import time
 import numpy as np
 
 # make sure the 'COM#' is set according the Windows Device Manager
-ser = serial.Serial('COM3', 9800, timeout=1, parity=serial.PARITY_NONE) # Establish the connection on a specific port
+ser = serial.Serial('COM11', 9800, timeout=1, parity=serial.PARITY_NONE) # Establish the connection on a specific port
 time.sleep(2)
 
 # Define a global variable to store the start time of the program
