@@ -62,7 +62,7 @@ class Agent:
         self.env.action_space = [i for i in range(self.action_steps)]
         self.action_space = self.env.action_space
 
-        self.update_rate = 100
+        self.update_rate = 10
         self.step_counter = 0
         
         self.replay_buffer = ReplayBuffer(self.buffer_size)
@@ -112,7 +112,7 @@ class Agent:
         
         # sample a batch of experiences
         states, actions, rewards, new_states, dones = self.replay_buffer.sample_batch(self.batch_size)
-
+        
         # predict the q values of the current states
         q_predicted = self.q_net.predict(states)
         # predict the q values of the next states
