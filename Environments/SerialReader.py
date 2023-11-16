@@ -22,7 +22,7 @@ class SerialReader(threading.Thread):
                         self.state = np.array([float(parts[0]), float(parts[1])])
                         self.motorAngle = float(parts[2])
                         self.episode_done = bool(float(parts[3]))
-                        # print(self.state, self.episode_done)
+                        # print(self.state, self.motorAngle, self.episode_done)
 
     def get_state(self):
         time.sleep(0.1)

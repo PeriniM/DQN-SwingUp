@@ -15,7 +15,7 @@ plot_colormaps = False
 if isFake:
     env = fake.FakeEnv(nJoints)
 elif isReal:
-    env = real.RealPendulum("COM5", 115200)
+    env = real.RealPendulum("COM3", 115200)
 else:
     env = pdl.Pendulum(nJoints)
 

@@ -62,7 +62,7 @@ class Agent:
         self.env.action_space = [i for i in range(self.action_steps)]
         self.action_space = self.env.action_space
 
-        self.update_rate = 10
+        self.update_rate = 50
         self.step_counter = 0
         
         self.replay_buffer = ReplayBuffer(self.buffer_size)
@@ -186,7 +186,7 @@ class Agent:
                 avg_episode_reward = episode_reward / self.env.iterCount
                 # average of the list of losses of the last steps
                 avg_episode_loss = np.mean(self.loss[-self.env.iterCount:])
-                self.save_metrics(episode, avg_episode_reward, avg_episode_loss, self.epsilon, time.time() - start_training_time)
+                self.save_metrics(episode, episode_reward, avg_episode_loss, self.epsilon, time.time() - start_training_time)
             else:
                 self.save_metrics(episode, episode_reward, None, self.epsilon, time.time() - start_training_time)
         

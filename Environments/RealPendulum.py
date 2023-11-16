@@ -26,7 +26,9 @@ class RealPendulum:
         self.motorAngle = 0.0
         self.done = False
         self.iterCount = 0
+        # self.maxIter = 1000
         self.omega_max = 10.0
+        # self.range_actions = np.array([0.0, 100.0])
 
         # variable to store angles of one episode
         self.episode_angles = []
@@ -101,7 +103,7 @@ class RealPendulum:
         # Constants to scale the angle and velocity penalties
         ANGLE_WEIGHT = 1.0
         VELOCITY_WEIGHT = 0.1
-        MOTOR_ANGLE_WEIGHT = 0.1
+        MOTOR_ANGLE_WEIGHT = 1.0
         ACTION_WEIGHT = 0.01
 
         # Penalize the angle to be minimized
@@ -125,7 +127,9 @@ class RealPendulum:
         if self.iterCount > self.maxIter*3/4:
             if np.abs(np.mean(self.episode_angles)) < (np.pi-0.8):
                 reward-=100.0
-
+        # if self.done:
+        #     if self.iterCount < self.maxIter*1/10:
+        #         reward-=100.0
         return reward
 
     def render(self):
