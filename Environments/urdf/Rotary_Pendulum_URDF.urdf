@@ -1,4 +1,8 @@
 <?xml version="1.0" ?>
+
+<!-- Exported from Fusion360 using Fusion2PyBullet URDF Exporter add-in
+https://github.com/yanshil/Fusion2PyBullet -->
+
 <robot name="Rotary_Pendulum_URDF">
 
 <material name="steel">
