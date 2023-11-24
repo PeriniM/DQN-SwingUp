@@ -130,8 +130,7 @@ class Agent:
             q_target[i, actions[i]] = rewards[i] + self.discount_factor * q_max_next[i] * (1 - dones[i])
         
         # train the network in batches
-        self.q_net.train_on_batch(states, q_target)
-        loss = self.q_net.evaluate(states, q_target, verbose=0)
+        loss = self.q_net.train_on_batch(states, q_target)
         # loss = self.q_net.train_batch_gradientTape(states, q_target)
         # append the loss
         self.loss.append(loss)
@@ -226,7 +225,8 @@ class Agent:
 
         for episode in range(episodes):
             if swingUp:
-                observation = self.env.reset_swingUp()
+                # observation = self.env.reset_swingUp()
+                observation = self.env.reset_robot(mode="home")
             else:
                 observation = self.env.reset()
             done = False
