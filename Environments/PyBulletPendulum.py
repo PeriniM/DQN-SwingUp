@@ -3,6 +3,7 @@ import numpy as np
 import os
 import time
 import pybullet_data
+import copy
 
 class PyBulletPendulum:
     """
@@ -10,7 +11,7 @@ class PyBulletPendulum:
     """
     def __init__(self):
         # Initialize PyBullet
-        self.physicsClient = p.connect(p.GUI)  # Use p.DIRECT for non-graphical version
+        self.physicsClient = p.connect(p.GUI)  # Use p.DIRECT for non-graphical version or p.GUI for graphical version
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, -9.806)
         # move camera to focus on the robot
@@ -28,9 +29,8 @@ class PyBulletPendulum:
         self.motorAngle = 0.0
         self.done = False
         self.iterCount = 0
-        self.maxIter = 1000
         self.omega_max = 10.0
-
+        self.episode_reward = 0.0
         # variable to store angles of one episode
         self.episode_angles = []
 
@@ -74,7 +74,7 @@ class PyBulletPendulum:
         """
         # Reset the episode angles
         self.episode_angles = []
-
+        self.episode_reward = 0.0
         # Send command to pendulum to reset to random position
         self.send_fake_serial([0, 1])
 
@@ -84,9 +84,19 @@ class PyBulletPendulum:
         # Reset iteration count
         self.iterCount = 0
         
-        # normalized_state = self.normalize_state(self.state)
-        # return normalized_state
-        return self.state
+        normalized_state = self.normalize_state(self.state)
+        return normalized_state
+        # return self.state
+    
+    def normalize_state(self, state):
+        """
+        Normalize the state to be between -1 and 1
+        """
+        normalized_state = np.zeros(self.num_state)
+        normalized_state[0] = state[0] / np.pi
+        normalized_state[1] = state[1] / self.omega_max
+
+        return normalized_state
     
     def step(self, action):
         """
@@ -97,41 +107,64 @@ class PyBulletPendulum:
         self.send_fake_serial([self.action, 0])
         # Read state and episode done flag from serial
         self.state, self.motorAngle, self.done = self.get_state()
+        # normalized_state = self.normalize_state(self.state)
 
         # Store the angles of the episode for reward penalty
         self.episode_angles.append(self.state[0])
         
         # Calculate reward
-        # normalized_state = self.normalize_state(self.state)
+        normalized_state = self.normalize_state(self.state)
         reward = self.calculate_reward(self.state)
+        self.episode_reward += reward
         self.iterCount += 1
         self.reset_policy(self.maxIter)
 
-        # return normalized_state, reward, self.done
-        return self.state, reward, self.done
+
+        return normalized_state, reward, self.done
+        # return self.state, reward, self.done
     
     def calculate_reward(self, state):
         """
         Calculate the reward for the current state
         """
         # Constants to scale the bar and motor angle penalties
-        ANGLE_WEIGHT = 1.0
-        VELOCITY_WEIGHT = 0.1
-        MOTOR_ANGLE_WEIGHT = 0.0001
-        ACTION_WEIGHT = 0.0001
+        # ANGLE_WEIGHT = 1.0
+        # VELOCITY_WEIGHT = 0.01
+        # MOTOR_ANGLE_WEIGHT = 0.001
+        # ACTION_WEIGHT = 0.001
 
-        # Calculate the angle penalty
-        angle_penalty = ANGLE_WEIGHT * (state[0] ** 2)
-        # Calculate the velocity penalty
-        velocity_penalty = VELOCITY_WEIGHT * (state[1] ** 2)
-        # Calculate the motor angle penalty
-        motor_angle_penalty = MOTOR_ANGLE_WEIGHT * (self.motorAngle ** 2)
-        # Calculate the action penalty
-        action_penalty = ACTION_WEIGHT * (self.action ** 2)
+        # # Calculate the angle penalty
+        # angle_penalty = ANGLE_WEIGHT * (state[0]/np.pi) ** 2
+        # # Calculate the velocity penalty
+        # velocity_penalty = VELOCITY_WEIGHT * (state[1]/self.omega_max) ** 2
+        # # Calculate the motor angle penalty
+        # motor_angle_penalty = MOTOR_ANGLE_WEIGHT * (self.motorAngle/self.motor_angle_range[1]) ** 2
+        # # Calculate the action penalty
+        # action_penalty = ACTION_WEIGHT * (self.action / 100.0) ** 2
 
-        # Calculate the reward
-        reward = -angle_penalty - velocity_penalty - motor_angle_penalty - action_penalty
+        # # Calculate the reward
+        # reward = - (angle_penalty + velocity_penalty + motor_angle_penalty + action_penalty)
 
+        # NEW REWARD FUNCTION
+        # reward range [-1, 0]
+        angle_target = 0.0
+        angular_velocity_target = 0.0
+        # motor_angle_target = 0.0
+
+        # reward = -1/2 * (np.abs(state[0] - angle_target)/np.pi + np.abs(self.motorAngle - motor_angle_target)/self.motor_angle_range[1])
+        reward = -1/2 * (np.abs(state[0] - angle_target)/np.pi + np.abs(state[1] - angular_velocity_target)/self.omega_max)
+        # if the episode is done with enough iterations
+        # if self.iterCount > int(self.maxIter/2) and self.done:
+        #     # if the average of the bar angles is less than 90 degrees
+        #     if np.abs(np.mean(self.episode_angles)) < np.deg2rad(90):
+        #         reward += 100.0
+
+        # if the episode is done with not enough iterations
+        if self.iterCount < int(self.maxIter/10) and self.done:
+            # if the motor angle is out of range
+            if self.out_of_range:
+                reward -= 100.0
+        
         return reward
     
     def reset_policy(self, reset_count=200):
@@ -181,11 +214,16 @@ class PyBulletPendulum:
             self.out_of_range = True
         else:
             self.out_of_range = False
-
+            
         # Adjusting the bar angle to map correctly
         bar_angle = bar_angle % (2 * np.pi)  # Normalize the angle to be within 0 to 2π
         if bar_angle > np.pi:
             bar_angle -= 2 * np.pi  # Adjust angles greater than π to be between -π to π
+        
+        if bar_angle > 0:
+            bar_angle = np.pi - bar_angle
+        elif bar_angle < 0:
+            bar_angle = -np.pi - bar_angle
 
         # round the states to 4 decimal places
         bar_angle = round(bar_angle, 4)
@@ -243,5 +281,3 @@ class PyBulletPendulum:
         Close the PyBullet connection
         """
         p.disconnect()
-        
-    

@@ -30,7 +30,7 @@ if train:
     dqn_agent.train_model(render=True, plot=True, verbose=True, soft_start=False)
 
 if evaluate:
-    dqn_agent.evaluate_model(episodes=10, swingUp=True, render=True, verbose=True, final=False)
+    dqn_agent.evaluate_model(episodes=10, swingUp=False, render=True, verbose=True, final=False)
 
 if plot_colormaps and nJoints == 1:
     dqn_agent.plot_value_policy('2D', resolution=100, final=False)
