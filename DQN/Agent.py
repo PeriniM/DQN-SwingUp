@@ -14,7 +14,6 @@ import time
 from datetime import datetime
 import tensorflow as tf
 from tensorflow.keras import backend as K
-from tensorflow.keras.callbacks import TensorBoard
 
 from DQN.DeepQNetwork import DeepQNetwork
 from DQN.ReplayBuffer import ReplayBuffer
@@ -30,16 +29,6 @@ class Agent:
     - Evaluate the network
     """
     def __init__(self, env):
-
-        # check if gpu is available
-        if tf.config.list_physical_devices('GPU'):
-            # print the device name
-            print("GPU is available")
-            print("Device name: {}".format(tf.test.gpu_device_name()))
-                
-        else:
-            print("GPU is not available")
-
         self.env = env
         
         self.nJoint = self.env.nbJoint
@@ -49,7 +38,7 @@ class Agent:
         root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         ini_file_path = os.path.join(root_dir, 'config.ini')
         self.params = self.parse_ini(ini_file_path)
-        
+
         # set up the parameters from the INI file
         self.action_steps = int(self.params['action_steps'])
         self.torque_range = ast.literal_eval(self.params['torque_range'])
@@ -58,16 +47,11 @@ class Agent:
         self.lr = float(self.params['lr'])
         self.discount_factor = float(self.params['discount_factor'])
         self.epsilon = float(self.params['epsilon'])
-        self.epsilon_decay_episodes = int(self.params['epsilon_decay_episodes'])
+        self.epsilon_decay = float(self.params['epsilon_decay'])
         self.epsilon_final = float(self.params['epsilon_final'])
         self.buffer_size = int(self.params['buffer_size'])
         self.batch_size = int(self.params['batch_size'])
         self.hidden_dims = ast.literal_eval(self.params['hidden_dims'])
-        self.update_rate_episodes = int(self.params['target_update_episodes'])
-        self.train_rate_steps = int(self.params['train_rate_steps'])
-
-        self.discounted_reward = 0.0
-        self.epsilon_decay = (self.epsilon - self.epsilon_final) / self.epsilon_decay_episodes
 
         # set up the environment parameters
         self.env.num_actions = self.action_steps
@@ -78,13 +62,12 @@ class Agent:
         self.env.action_space = [i for i in range(self.action_steps)]
         self.action_space = self.env.action_space
 
-        self.total_step_counter = 0
+        self.update_rate = 100
+        self.step_counter = 0
+        
         self.replay_buffer = ReplayBuffer(self.buffer_size)
 
-        self.name_model = self.env.name + '_'+str(self.action_steps)+'_'+str(self.max_episode_steps)+'_' + \
-                    str(self.epsilon_decay_episodes)+'_'+str(self.buffer_size)+'_'+str(self.batch_size)+'_'+ \
-                    str(self.hidden_dims)+'_'+str(self.update_rate_episodes)+'_'+str(self.train_rate_steps)
-        
+        self.name_model = self.env.name + '_'+str(self.action_steps)+'_'+str(self.hidden_dims)
         # path of the weights folder
         self.weights_folder = os.path.join(root_dir, 'saved_weights')
         self.final_weights_folder = os.path.join(root_dir, 'final_results/'+self.env.name)
@@ -95,15 +78,10 @@ class Agent:
         self.metrics_df = pd.DataFrame()
         self.metrics_name = ''
 
-        # set up tensorboard
-        self.log_dir = os.path.join(root_dir, 'logs')
-        self.writer = tf.summary.create_file_writer(os.path.join(self.log_dir, self.name_model))
-
         self.q_net = DeepQNetwork(self.lr, self.env.num_actions, self.env.num_state, self.hidden_dims , opt='adam', loss='mse')
         self.q_target_net = DeepQNetwork(self.lr, self.env.num_actions, self.env.num_state, self.hidden_dims, opt='adam', loss='mse')
+        self.loss = []
 
-        self.loss = 0.0
-        self.current_episode = 0
         self.training_time = 0
     
     def policy(self, observation, type='epsilon_greedy'):
@@ -134,7 +112,7 @@ class Agent:
         
         # sample a batch of experiences
         states, actions, rewards, new_states, dones = self.replay_buffer.sample_batch(self.batch_size)
-        
+
         # predict the q values of the current states
         q_predicted = self.q_net.predict(states)
         # predict the q values of the next states
@@ -152,8 +130,19 @@ class Agent:
             q_target[i, actions[i]] = rewards[i] + self.discount_factor * q_max_next[i] * (1 - dones[i])
         
         # train the network in batches
-        self.loss = self.q_net.train_on_batch(states, q_target)
-        # self.loss = self.q_net.train_batch_gradientTape(states, q_target)
+        loss = self.q_net.train_on_batch(states, q_target)
+        # loss = self.q_net.train_batch_gradientTape(states, q_target)
+        # append the loss
+        self.loss.append(loss)
+
+        # decay the epsilon
+        self.epsilon = self.epsilon - self.epsilon_decay if self.epsilon > self.epsilon_final else self.epsilon_final
+        self.step_counter += 1
+
+        # if the step counter is a multiple of the update rate, update the target network
+        if self.step_counter % self.update_rate == 0:
+            self.q_target_net.model.set_weights(self.q_net.model.get_weights())
+            # print("Target network updated")
    
     def train_model(self, render=True, plot=True, verbose=False, soft_start=False):
         """
@@ -169,11 +158,8 @@ class Agent:
         for episode in range(self.train_episodes):
             observation = self.env.reset()
             done = False
-            self.discounted_reward = 0.0
-            episode_steps = 0
-            self.loss = 0.0
-            self.current_episode = episode
-
+            episode_reward = 0
+            self.loss = []
             while not done:
                 if render:
                     self.env.render()
@@ -184,41 +170,42 @@ class Agent:
                 action = self.policy(observation, 'epsilon_greedy')
                 new_observation, reward, done = self.env.step(self.env.actions[action])
                 new_observation_copy = copy.copy(new_observation)
-                self.discounted_reward += self.discount_factor**episode_steps * reward
-                
+                episode_reward += reward
                 # store the experience in the replay buffer
                 self.replay_buffer.store_tuple(observation_copy, action, reward, new_observation_copy, done)
                 observation = new_observation_copy
-
-                # train the network every train_rate_steps
-                if self.total_step_counter % self.train_rate_steps == 0 or done:
-                    self.train()
-                
-                self.total_step_counter += 1
-                episode_steps += 1
-            
-            # update the epsilon
-            self.epsilon = self.epsilon - self.epsilon_decay if self.epsilon > self.epsilon_final else self.epsilon_final
-            # update the target network
-            if (episode+1) % self.update_rate_episodes == 0:
-                self.q_target_net.model.set_weights(self.q_net.model.get_weights()) 
+                self.train()
+                if verbose:
+                    if len(self.loss) > 0: 
+                        print("Episode: {}, Step: {}, Reward: {}, Loss: {}".format(episode, self.env.iterCount, episode_reward, self.loss[-1]))
+                    else:
+                        print("Episode: {}, Step: {}, Reward: {}".format(episode, self.env.iterCount, episode_reward))
+            if len(self.loss) > 0:
+                # average of episode reward and loss
+                avg_episode_reward = episode_reward / self.env.iterCount
+                # average of the list of losses of the last steps
+                avg_episode_loss = np.mean(self.loss[-self.env.iterCount:])
+                self.save_metrics(episode, avg_episode_reward, avg_episode_loss, self.epsilon, time.time() - start_training_time)
+            else:
+                self.save_metrics(episode, episode_reward, None, self.epsilon, time.time() - start_training_time)
+        
             # save the weights every 10 episodes
             if episode % 10 == 0:
                 self.q_net.model.save_weights(os.path.join(self.weights_folder, self.weights_name[0]))
                 self.q_target_net.model.save_weights(os.path.join(self.weights_folder, self.weights_name[1]))
-                # clear the session to avoid memory leaks
-                K.clear_session()    
             
-            # save the metrics to tensorboard
-            with self.writer.as_default():
-                tf.summary.scalar('loss', self.loss, step=episode)
-                tf.summary.scalar('epsilon', self.epsilon, step=episode)
-                tf.summary.scalar('reward', self.discounted_reward, step=episode)
-                tf.summary.scalar('episode_steps', episode_steps, step=episode)
-            self.writer.flush()
-               
+            # clear the session to avoid memory leaks
+            K.clear_session()       
+        
         self.training_time = time.time() - start_training_time
         print("Training time: {}".format(self.training_time))
+
+        if plot:
+            # plot loss vs episodes
+            plt.plot(self.loss)
+            plt.xlabel("Final Episode Steps")
+            plt.ylabel("Final Loss")
+            plt.show()
             
     def evaluate_model(self, episodes, swingUp=False, render=True, plot=True, verbose=False, final=False):
         """
@@ -238,8 +225,7 @@ class Agent:
 
         for episode in range(episodes):
             if swingUp:
-                # observation = self.env.reset_swingUp()
-                observation = self.env.reset_robot(mode="home")
+                observation = self.env.reset_swingUp()
             else:
                 observation = self.env.reset()
             done = False
@@ -247,13 +233,11 @@ class Agent:
             while not done:
                 if render:
                     self.env.render()
-                
+                # take actions only from predictions
                 action = self.policy(observation, 'greedy')
                 new_observation, reward, done = self.env.step(self.env.actions[action])
-                new_observation_copy = copy.copy(new_observation)
                 episode_reward += reward
-                
-                observation = new_observation_copy
+                observation = new_observation
                 
                 # append the angle, angular velocity and torque to the lists
                 if self.nJoint == 1:
@@ -439,3 +423,8 @@ class Agent:
         self.metrics_df.loc[len(self.metrics_df)] = [episode, episode_reward, last_loss, last_epsilon, episode_time]
         # export the dataframe to a csv file with timestamp
         self.metrics_df.to_csv(os.path.join(self.metrics_folder, self.metrics_name), index=False)
+
+        
+
+    
+        
