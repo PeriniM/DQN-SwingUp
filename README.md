@@ -1,5 +1,5 @@
 # DQN Algorithm N-Pendulum Swing-Up
-
+ ![Double Pendulum Swing Up](final_results/2-pendulum/videos/swing-up.gif)
 ## Introduction
 This project aims at implementing the DQN algorithm to solve the single and double pendulum swing-up problem. It uses Pinocchio library to compute the dynamics of the system and Gepetto Viewer to visualize the system. The DQN algorithm is implemented using Tensorflow 2.12.
 
